@@ -1,0 +1,8 @@
+-- Your SQL goes here
+CREATE TABLE players (
+       id            SERIAL       PRIMARY KEY,
+       name_family   VARCHAR(32)  NOT NULL,
+       name_given    VARCHAR(32)  NOT NULL,
+       date_of_birth DATE         NOT NULL,
+       height_cm     INT          NOT NULL,
+       weight_kg     NUMERIC(3,1) NOT NULL);

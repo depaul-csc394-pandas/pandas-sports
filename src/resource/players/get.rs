@@ -10,16 +10,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum Params {
-    Team {
-        #[serde(flatten)]
-        team: models::NewTeam
-    },
+    Player { id: i32 },
 }
 
 #[derive(Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum Response {
-    Team { team: models::Team },
+    Player { player: models::Player, },
+    Players { player: Vec<models::Player>, },
 }
 
 impl Responder for Response {
@@ -29,35 +27,31 @@ impl Responder for Response {
     fn respond_to(self, _req: &HttpRequest) -> Self::Future {
         let body = serde_json::to_string(&self)?;
 
-        Ok(HttpResponse::Created()
+        Ok(HttpResponse::Ok()
             .content_type("application/json")
             .body(body))
     }
 }
 
 fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<Response, ServiceError> {
-    use crate::schema::teams::dsl::*;
-    use diesel::result::{DatabaseErrorKind, Error as DieselError};
-
+    use crate::schema::players::dsl::*;
     let conn = pool.get().map_err(error::unavailable)?;
-    let response = match params.into_inner() {
-        Params::Team { team: r_team } => {
-            let team = diesel::insert_into(teams)
-                .values(&r_team)
-                .get_result(&conn)
-                .map_err(|e| match e {
-                    DieselError::DatabaseError(DatabaseErrorKind::UniqueViolation, _) => error::conflict(e),
-                    e => error::internal(e),
-                })?;
 
-            Response::Team { team }
+    let response = match params.into_inner() {
+        Params::Player { id: r_id } => {
+            let player = players.find(&r_id).get_result(&conn).map_err(|e| match e {
+                diesel::result::Error::NotFound => error::not_found(e),
+                e => error::internal(e),
+            })?;
+
+            Response::Player { player }
         }
     };
 
     Ok(response)
 }
 
-pub fn post(
+pub fn get(
     params: web::Json<Params>,
     pool: web::Data<Pool>,
 ) -> impl Future<Item = Response, Error = ServiceError> {

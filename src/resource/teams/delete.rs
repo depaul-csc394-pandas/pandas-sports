@@ -8,24 +8,22 @@ use futures::Future;
 use serde::Deserialize;
 
 #[derive(Deserialize)]
-pub struct Params {
-    id: i32,
+#[serde(rename_all = "snake_case")]
+pub enum Params {
+    Team { id: i32 },
 }
 
 fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<(), ServiceError> {
     use crate::schema::teams::dsl::*;
-    use diesel::result::{DatabaseErrorKind, Error as DieselError};
     let conn = pool.get().map_err(error::unavailable)?;
 
-    diesel::delete(teams.find(&params.id))
-        .execute(&conn)
-        .map_err(|err| match err {
-            DieselError::NotFound => error::not_found(err),
-            DieselError::DatabaseError(DatabaseErrorKind::ForeignKeyViolation, _) => {
-                error::conflict(err)
-            }
-            e => error::internal(e),
-        })?;
+    match params.into_inner() {
+        Params::Team { id: r_id } => {
+            diesel::delete(teams.find(r_id))
+                .execute(&conn)
+                .map_err(error::from_diesel)?;
+        }
+    }
 
     Ok(())
 }

@@ -16,15 +16,6 @@ static DATABASE_URL: &'static str = "DATABASE_URL";
 
 type Pool = r2d2::Pool<ConnectionManager<PgConnection>>;
 
-#[derive(Queryable, Serialize)]
-pub struct Match {
-    pub id: i32,
-    pub team_1: i32,
-    pub team_1_score: i32,
-    pub team_2: i32,
-    pub team_2_score: i32,
-}
-
 fn main() {
     dotenv::dotenv().ok();
     std::env::set_var("RUST_LOG", "pandas_sports=info,actix_web=info,diesel=info");
@@ -53,16 +44,26 @@ fn main() {
                 web::scope("/api")
                     .service(
                         web::resource("/matches")
-                            .route(web::delete().to_async(resource::matches::delete))
-                            .route(web::get().to_async(resource::matches::get))
+                            .route(web::get().to_async(resource::matches::list_matches))
                             .route(web::post().to_async(resource::matches::post)),
+                    )
+                    .service(
+                        web::resource("/matches/{id}")
+                            .route(web::get().to_async(resource::matches::get_match))
+                            .route(web::delete().to_async(resource::matches::delete_match))
                     )
                     .service(
                         web::resource("/teams")
                             .route(web::delete().to_async(resource::teams::delete))
                             .route(web::get().to_async(resource::teams::get))
                             .route(web::post().to_async(resource::teams::post)),
-                    ),
+                    )
+                    .service(
+                        web::resource("/players")
+                            // .route(web::delete().to_async(resource::teams::delete))
+                            // .route(web::get().to_async(resource::teams::get))
+                            // .route(web::post().to_async(resource::teams::post)),
+                    )
             )
     })
     .bind("localhost:8080")

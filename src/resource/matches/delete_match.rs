@@ -8,16 +8,16 @@ use futures::Future;
 use serde::Deserialize;
 
 #[derive(Deserialize)]
-pub struct Params {
+pub struct PathParams {
     id: i32,
 }
 
-fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<(), ServiceError> {
+fn query(path: web::Path<PathParams>, pool: web::Data<Pool>) -> Result<(), ServiceError> {
     use crate::schema::matches::dsl::*;
     use diesel::result::{DatabaseErrorKind, Error as DieselError};
     let conn = pool.get().map_err(error::unavailable)?;
 
-    diesel::delete(matches.find(&params.id))
+    diesel::delete(matches.find(&path.id))
         .execute(&conn)
         .map_err(|err| match err {
             DieselError::NotFound => error::not_found(err),
@@ -30,11 +30,11 @@ fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<(), Service
     Ok(())
 }
 
-pub fn delete(
-    params: web::Json<Params>,
+pub fn delete_match(
+    path: web::Path<PathParams>,
     pool: web::Data<Pool>,
 ) -> impl Future<Item = HttpResponse, Error = ServiceError> {
-    web::block(move || query(params, pool)).then(move |res| match res {
+    web::block(move || query(path, pool)).then(move |res| match res {
         Ok(()) => Ok(HttpResponse::NoContent().finish()),
         Err(e) => Err(error::from_blocking(e)),
     })

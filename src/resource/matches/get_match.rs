@@ -8,13 +8,13 @@ use futures::Future;
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize)]
-pub struct Params {
+pub struct PathParams {
     id: i32,
 }
 
 #[derive(Serialize)]
 pub struct Response {
-    #[serde(rename = "match")]
+    #[serde(flatten, rename = "match")]
     match_: models::Match,
 }
 
@@ -31,26 +31,24 @@ impl Responder for Response {
     }
 }
 
-fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<models::Match, ServiceError> {
+fn query(path: web::Path<PathParams>, pool: web::Data<Pool>) -> Result<Response, ServiceError> {
     use crate::schema::matches::dsl::*;
     let conn = pool.get().map_err(error::unavailable)?;
-    let match_ = matches
-        .find(&params.id)
-        .get_result(&conn)
-        .map_err(|e| match e {
-            diesel::result::Error::NotFound => error::not_found(e),
-            e => error::internal(e),
-        })?;
 
-    Ok(match_)
+    let match_ = matches
+        .find(path.id)
+        .get_result(&conn)
+        .map_err(error::from_diesel)?;
+
+    Ok(Response { match_ })
 }
 
-pub fn get(
-    params: web::Json<Params>,
+pub fn get_match(
+    path: web::Path<PathParams>,
     pool: web::Data<Pool>,
 ) -> impl Future<Item = Response, Error = ServiceError> {
-    web::block(move || query(params, pool)).then(move |res| match res {
-        Ok(m) => Ok(Response { match_: m }),
+    web::block(move || query(path, pool)).then(move |res| match res {
+        Ok(r) => Ok(r),
         Err(e) => Err(error::from_blocking(e)),
     })
 }

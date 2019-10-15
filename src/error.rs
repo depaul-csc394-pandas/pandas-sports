@@ -1,9 +1,11 @@
 use actix_web::{error::BlockingError, HttpResponse};
+use diesel::result::{DatabaseErrorKind, Error as DieselError};
 use failure::{Error, Fail};
 
 #[allow(dead_code)]
 #[derive(Clone, Copy, Debug)]
 pub enum Status {
+    BadRequest = 400,
     Unauthorized = 401,
     Forbidden = 403,
     NotFound = 404,
@@ -19,6 +21,7 @@ impl std::fmt::Display for Status {
             "{} {}",
             *self as u32,
             match self {
+                Status::BadRequest => "Bad Request",
                 Status::Unauthorized => "Unauthorized",
                 Status::Forbidden => "Forbidden",
                 Status::NotFound => "Not Found",
@@ -53,6 +56,7 @@ impl std::convert::Into<actix_web::Error> for ServiceError {
 
         match self.cause {
             Some(c) => match self.status {
+                Status::BadRequest => error::ErrorBadRequest(c),
                 Status::Unauthorized => error::ErrorUnauthorized(c),
                 Status::Forbidden => error::ErrorForbidden(c),
                 Status::NotFound => error::ErrorNotFound(c),
@@ -62,6 +66,7 @@ impl std::convert::Into<actix_web::Error> for ServiceError {
             },
 
             None => match self.status {
+                Status::BadRequest => HttpResponse::BadRequest(),
                 Status::Unauthorized => HttpResponse::Unauthorized(),
                 Status::Forbidden => HttpResponse::Forbidden(),
                 Status::NotFound => HttpResponse::NotFound(),
@@ -84,6 +89,13 @@ where
         status,
         cause: Some(e.into()),
     }
+}
+
+pub fn bad_request<E>(e: E) -> ServiceError
+where
+    E: Into<Error>,
+{
+    construct_error(e, Status::BadRequest)
 }
 
 pub fn unauthorized<E>(e: E) -> ServiceError
@@ -136,5 +148,18 @@ pub fn from_blocking(be: BlockingError<ServiceError>) -> ServiceError {
             status: Status::InternalServerError,
             cause: None,
         },
+    }
+}
+
+pub fn from_diesel(de: DieselError) -> ServiceError {
+    match de {
+        DieselError::NotFound => not_found(de),
+        DieselError::DatabaseError(kind, _) => match kind {
+            DatabaseErrorKind::ForeignKeyViolation | DatabaseErrorKind::UniqueViolation => {
+                conflict(de)
+            }
+            _ => internal(de),
+        },
+        _ => internal(de),
     }
 }

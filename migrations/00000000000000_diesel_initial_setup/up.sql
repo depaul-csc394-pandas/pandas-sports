@@ -34,3 +34,6 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
+-- Install btree_gist extension
+CREATE EXTENSION btree_gist;

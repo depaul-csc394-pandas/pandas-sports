@@ -1,9 +1,9 @@
 table! {
     matches (id) {
         id -> Int4,
-        team_1 -> Int4,
+        team_1_id -> Int4,
         team_1_score -> Int4,
-        team_2 -> Int4,
+        team_2_id -> Int4,
         team_2_score -> Int4,
     }
 }
@@ -14,8 +14,8 @@ table! {
         name_family -> Varchar,
         name_given -> Varchar,
         date_of_birth -> Date,
-        height_cm -> Int4,
-        weight_kg -> Numeric,
+        height_cm -> Float4,
+        weight_kg -> Float4,
     }
 }
 

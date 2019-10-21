@@ -1,0 +1,294 @@
+openapi: 3.0.2
+info:
+  version: 0.1.0
+  title: Pandas Sports Service
+paths:
+  /api/matches:
+    get:
+      tags:
+        - matches
+      parameters:
+        - name: limit
+          in: query
+          description: number of matches to retrieve at once
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: offset
+          in: query
+          description: number of matches to skip
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: list of matches
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMatch'
+        default:
+          description: unexpected error
+    post:
+      tags:
+        - matches
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostMatch"
+      responses:
+        '201':
+          description: match created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMatch'
+        default:
+          description: unexpected error
+  /api/matches/{id}:
+    get:
+      tags:
+        - matches
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of match to retrieve
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: match found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMatch'
+    delete:
+      tags:
+        - matches
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of match to delete
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: match found
+  /api/teams:
+    get:
+      tags:
+        - teams
+      parameters:
+        - name: limit
+          in: query
+          description: number of teams to retrieve at once
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+        - name: offset
+          in: query
+          description: number of teams to skip
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: list of matches
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTeam'
+        default:
+          description: unexpected error
+    post:
+      tags:
+        - teams
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostTeam'
+      responses:
+        '201':
+          description: team created
+        default:
+          description: unexpected error
+  /api/teams/{id}:
+    get:
+      tags:
+        - teams
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: the ID of the team to get
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: the team with the given ID
+        default:
+          description: unexpected error
+    delete:
+      tags:
+        - teams
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: the ID of the team to delete
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: team deleted
+        default:
+          description: unexpected error
+components:
+  schemas:
+    MatchCommon:
+      type: object
+      required:
+        - team_1_id
+        - team_2_id
+        - team_1_score
+        - team_2_score
+      properties:
+        team_1_id:
+          type: integer
+          format: int32
+        team_2_id:
+          type: integer
+          format: int32
+        team_1_score:
+          type: integer
+          format: int32
+        team_2_score:
+          type: integer
+          format: int32
+    GetMatchDetails:
+      type: object
+      required:
+        - sport
+        - details_id
+      properties:
+        sport:
+          type: string
+        details_id:
+          type: integer
+          format: int32
+    GetMatch:
+      allOf:
+        - type: object
+          required:
+            - details
+            - id
+          properties:
+            details:
+              $ref: "#/components/schemas/GetMatchDetails"
+            id:
+              type: integer
+              format: int32
+        - $ref: "#/components/schemas/MatchCommon"
+    PostMatchDetailsBaseball:
+      type: object
+      properties:
+        dummy:
+          type: integer
+          format: int32
+    PostMatchDetailsBasketball:
+      type: object
+      properties:
+        dummy:
+          type: integer
+          format: int32
+    PostMatchDetailsFootball:
+      type: object
+      properties:
+        dummy:
+          type: integer
+          format: int32
+    PostMatchDetailsHockey:
+      type: object
+      properties:
+        dummy:
+          type: integer
+          format: int32
+    PostMatchDetailsSoccer:
+      type: object
+      properties:
+        dummy:
+          type: integer
+          format: int32
+    PostMatchDetailsVolleyball:
+      type: object
+      properties:
+        dummy:
+          type: integer
+          format: int32
+    PostMatchDetails:
+      allOf:
+        - type: object
+          required:
+            - sport
+            - details
+          properties:
+            sport:
+              type: string
+        - oneOf:
+            - $ref: "#/components/schemas/PostMatchDetailsBaseball"
+            - $ref: "#/components/schemas/PostMatchDetailsBasketball"
+            - $ref: "#/components/schemas/PostMatchDetailsFootball"
+            - $ref: "#/components/schemas/PostMatchDetailsHockey"
+            - $ref: "#/components/schemas/PostMatchDetailsSoccer"
+            - $ref: "#/components/schemas/PostMatchDetailsVolleyball"
+      discriminator:
+        propertyName: sport
+    PostMatch:
+      allOf:
+        - type: object
+          required:
+            - details
+            - id
+          properties:
+            details:
+              $ref: "#/components/schemas/PostMatchDetails"
+            id:
+              type: integer
+              format: int32
+        - $ref: "#/components/schemas/MatchCommon"
+    PostTeam:
+      type: object
+      required:
+        - team_name
+      properties:
+        team_name:
+          type: string
+    GetTeam:
+      allOf:
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: integer
+              format: int32
+        - $ref: '#/components/schemas/PostTeam'
+          

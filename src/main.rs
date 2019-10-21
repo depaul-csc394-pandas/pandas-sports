@@ -5,7 +5,6 @@ use actix_web::{middleware, web, App, HttpServer};
 use diesel::pg::PgConnection;
 use diesel::r2d2::{self, ConnectionManager};
 use log::{error, info};
-use serde::Serialize;
 
 mod error;
 mod models;
@@ -45,7 +44,7 @@ fn main() {
                     .service(
                         web::resource("/matches")
                             .route(web::get().to_async(resource::matches::list_matches))
-                            .route(web::post().to_async(resource::matches::post)),
+                            .route(web::post().to_async(resource::matches::create_match)),
                     )
                     .service(
                         web::resource("/matches/{id}")
@@ -54,16 +53,20 @@ fn main() {
                     )
                     .service(
                         web::resource("/teams")
-                            .route(web::delete().to_async(resource::teams::delete))
-                            .route(web::get().to_async(resource::teams::get))
-                            .route(web::post().to_async(resource::teams::post)),
+                            .route(web::get().to_async(resource::teams::list_teams))
+                            .route(web::post().to_async(resource::teams::create_team)),
+                    )
+                    .service(
+                        web::resource("/teams/{id}")
+                            .route(web::get().to_async(resource::teams::get_team))
+                            .route(web::delete().to_async(resource::teams::delete_team))
                     )
                     .service(
                         web::resource("/players")
                             // .route(web::delete().to_async(resource::teams::delete))
                             // .route(web::get().to_async(resource::teams::get))
                             // .route(web::post().to_async(resource::teams::post)),
-                    )
+                    ),
             )
     })
     .bind("localhost:8080")

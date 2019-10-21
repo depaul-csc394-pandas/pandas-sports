@@ -14,18 +14,11 @@ pub struct PathParams {
 
 fn query(path: web::Path<PathParams>, pool: web::Data<Pool>) -> Result<(), ServiceError> {
     use crate::schema::matches::dsl::*;
-    use diesel::result::{DatabaseErrorKind, Error as DieselError};
     let conn = pool.get().map_err(error::unavailable)?;
 
     diesel::delete(matches.find(&path.id))
         .execute(&conn)
-        .map_err(|err| match err {
-            DieselError::NotFound => error::not_found(err),
-            DieselError::DatabaseError(DatabaseErrorKind::ForeignKeyViolation, _) => {
-                error::conflict(err)
-            }
-            e => error::internal(e),
-        })?;
+        .map_err(error::from_diesel)?;
 
     Ok(())
 }

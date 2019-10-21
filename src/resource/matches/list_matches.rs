@@ -1,6 +1,8 @@
 use crate::{
     error::{self, ServiceError},
-    filter_query, models, order_query, Pool,
+    filter_query,
+    models::{api, sql},
+    order_query, Pool,
 };
 use actix_web::{web, HttpRequest, HttpResponse, Responder};
 use diesel::prelude::*;
@@ -19,7 +21,7 @@ pub struct QueryParams {
 
 #[derive(Serialize)]
 pub struct Response {
-    matches: Vec<models::Match>,
+    matches: Vec<api::GetMatch>,
 }
 
 impl Responder for Response {
@@ -135,7 +137,12 @@ fn list_query(
     }
 
     let conn = pool.get().map_err(error::unavailable)?;
-    let matches = query.load(&conn).map_err(error::from_diesel)?;
+    let matches = query
+        .load::<sql::Match>(&conn)
+        .map_err(error::from_diesel)?
+        .into_iter()
+        .map(api::GetMatch::from)
+        .collect();
 
     Ok(Response { matches })
 }

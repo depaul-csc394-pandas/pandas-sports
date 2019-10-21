@@ -1,0 +1,65 @@
+teams:
+  - team:
+      team_name: Pandas
+  - team:
+      team_name: Falcons
+  - team:
+      team_name: Armadillos
+  - team:
+      team_name: Pelicans
+matches:
+  - match:
+      start_time: '2019-07-09T12:00:00Z'
+      duration_seconds: 42
+      location: Chicago, IL, United States
+      team_1_id: 1
+      team_2_id: 2
+      team_1_score: 5
+      team_2_score: 2
+      details:
+        sport: baseball
+        dummy: 99
+  - match:
+      start_time: '2019-07-09T12:00:00Z'
+      duration_seconds: 7
+      location: Peoria, IL, United States
+      team_1_id: 3
+      team_2_id: 2
+      team_1_score: 101
+      team_2_score: 97
+      details:
+        sport: basketball
+        dummy: 17
+  - match:
+      start_time: '2019-07-09T12:00:00Z'
+      duration_seconds: 7
+      location: New York, NY, United States
+      team_1_id: 1
+      team_2_id: 4
+      team_1_score: 21
+      team_2_score: 7
+      details:
+        sport: football
+        dummy: 42
+  - match:
+      start_time: '2019-07-09T12:00:00Z'
+      duration_seconds: 7
+      location: Chongqing, People's Republic of China
+      team_1_id: 1
+      team_2_id: 2
+      team_1_score: 6
+      team_2_score: 4
+      details:
+        sport: hockey
+        dummy: 101
+  - match:
+      start_time: '2019-07-09T12:00:00Z'
+      duration_seconds: 7
+      location: Sao Paulo, Brazil
+      team_1_id: 3
+      team_2_id: 2
+      team_1_score: 3
+      team_2_score: 0
+      details:
+        sport: volleyball
+        dummy: 76

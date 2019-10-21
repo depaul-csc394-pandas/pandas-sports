@@ -8,18 +8,13 @@ use futures::Future;
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum Params {
-    Team { id: i32 },
+pub struct PathParams {
+    id: i32,
 }
 
 #[derive(Serialize)]
-#[serde(rename_all = "snake_case")]
-pub enum Response {
-    Team {
-        #[serde(flatten)]
-        team: models::Team,
-    },
+pub struct Response {
+    team: models::sql::Team,
 }
 
 impl Responder for Response {
@@ -35,27 +30,26 @@ impl Responder for Response {
     }
 }
 
-fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<Response, ServiceError> {
+fn query(
+    path_params: web::Path<PathParams>,
+    pool: web::Data<Pool>,
+) -> Result<Response, ServiceError> {
     use crate::schema::teams::dsl::*;
     let conn = pool.get().map_err(error::unavailable)?;
 
-    let response = match params.into_inner() {
-        Params::Team { id: r_id } => Response::Team {
-            team: teams
-                .find(r_id)
-                .get_result(&conn)
-                .map_err(error::from_diesel)?,
-        },
-    };
+    let team = teams
+        .find(path_params.id)
+        .get_result(&conn)
+        .map_err(error::from_diesel)?;
 
-    Ok(response)
+    Ok(Response { team })
 }
 
-pub fn get(
-    params: web::Json<Params>,
+pub fn get_team(
+    path_params: web::Path<PathParams>,
     pool: web::Data<Pool>,
 ) -> impl Future<Item = Response, Error = ServiceError> {
-    web::block(move || query(params, pool)).then(move |res| match res {
+    web::block(move || query(path_params, pool)).then(move |res| match res {
         Ok(r) => Ok(r),
         Err(e) => Err(error::from_blocking(e)),
     })

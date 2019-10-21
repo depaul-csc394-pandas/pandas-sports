@@ -1,25 +1,23 @@
 use crate::{
     error::{self, ServiceError},
-    models, Pool,
+    models::sql,
+    Pool,
 };
 use actix_web::{web, HttpRequest, HttpResponse, Responder};
 use diesel::prelude::*;
 use futures::Future;
 use serde::{Deserialize, Serialize};
 
-#[derive(Deserialize)]
+#[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub enum Params {
-    Team {
-        #[serde(flatten)]
-        team: models::NewTeam
-    },
+pub struct Body {
+    team: sql::NewTeam,
 }
 
-#[derive(Serialize)]
+#[derive(Debug, PartialEq, Serialize)]
 #[serde(rename_all = "snake_case")]
-pub enum Response {
-    Team { team: models::Team },
+pub struct Response {
+    team: sql::Team,
 }
 
 impl Responder for Response {
@@ -35,34 +33,60 @@ impl Responder for Response {
     }
 }
 
-fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<Response, ServiceError> {
+fn query(body: web::Json<Body>, pool: web::Data<Pool>) -> Result<Response, ServiceError> {
     use crate::schema::teams::dsl::*;
     use diesel::result::{DatabaseErrorKind, Error as DieselError};
 
     let conn = pool.get().map_err(error::unavailable)?;
-    let response = match params.into_inner() {
-        Params::Team { team: r_team } => {
+    let response = match body.into_inner() {
+        Body { team: r_team } => {
             let team = diesel::insert_into(teams)
                 .values(&r_team)
                 .get_result(&conn)
                 .map_err(|e| match e {
-                    DieselError::DatabaseError(DatabaseErrorKind::UniqueViolation, _) => error::conflict(e),
+                    DieselError::DatabaseError(DatabaseErrorKind::UniqueViolation, _) => {
+                        error::conflict(e)
+                    }
                     e => error::internal(e),
                 })?;
 
-            Response::Team { team }
+            Response { team }
         }
     };
 
     Ok(response)
 }
 
-pub fn post(
-    params: web::Json<Params>,
+pub fn create_team(
+    body: web::Json<Body>,
     pool: web::Data<Pool>,
 ) -> impl Future<Item = Response, Error = ServiceError> {
-    web::block(move || query(params, pool)).then(move |res| match res {
+    web::block(move || query(body, pool)).then(move |res| match res {
         Ok(r) => Ok(r),
         Err(e) => Err(error::from_blocking(e)),
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use serde_json::json;
+
+    #[test]
+    fn test_deserialize_body() {
+        let src = json!({
+            "team": {
+                "team_name": "Pandas",
+            }
+        });
+
+        assert_eq!(
+            Body::deserialize(src).expect("deserialization failed"),
+            Body {
+                team: sql::NewTeam {
+                    team_name: "Pandas".to_string(),
+                }
+            }
+        );
+    }
 }

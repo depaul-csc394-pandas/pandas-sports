@@ -1,0 +1,19 @@
+language: rust
+cache: cargo
+rust:
+  - stable
+  - beta
+  - nightly
+services:
+  - postgresql
+jobs:
+  allow_failures:
+    - rust: nightly
+  fast_finish: true
+before_script:
+  - echo "DATABASE_URL=postgres://postgres@localhost/pandas_sports" > .env
+  - cargo install diesel_cli --no-default-features --features=postgres
+  - diesel database setup
+script:
+  - cargo build --verbose --all
+  - cargo test --verbose --all

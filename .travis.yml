@@ -10,6 +10,10 @@ jobs:
   allow_failures:
     - rust: nightly
   fast_finish: true
+before_install:
+  - pyenv install 3.7.4
+  - pip install pipenv
+  - pipenv install
 before_script:
   - echo "DATABASE_URL=postgres://postgres@localhost/pandas_sports" > .env
   - cargo install diesel_cli --no-default-features --features=postgres
@@ -17,3 +21,7 @@ before_script:
 script:
   - cargo build --verbose --all
   - cargo test --verbose --all
+  - cargo run &
+  - SERVER_PID=$!
+  - python test.py
+  - kill $!

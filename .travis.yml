@@ -18,7 +18,7 @@ before_install:
   - pipenv install
 before_script:
   - echo "DATABASE_URL=postgres://postgres@localhost/pandas_sports" > .env
-  - cargo install diesel_cli --no-default-features --features=postgres
+  - cargo install --force diesel_cli --no-default-features --features=postgres
   - diesel database setup
 script:
   - cargo build --verbose --all

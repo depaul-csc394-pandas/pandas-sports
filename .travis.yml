@@ -11,7 +11,7 @@ jobs:
     - rust: nightly
   fast_finish: true
 before_install:
-  - sudo add-apt-repository ppa:deadsnakes/ppa
+  - sudo add-apt-repository ppa:deadsnakes/ppa -y
   - sudo apt-get update
   - sudo apt-get install python3.6
   - sudo pip install pipenv
@@ -25,5 +25,5 @@ script:
   - cargo test --verbose --all
   - cargo run &
   - SERVER_PID=$!
-  - python test.py
+  - python3.6 test.py
   - kill $!

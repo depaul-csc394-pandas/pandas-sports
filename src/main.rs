@@ -5,6 +5,7 @@ use actix_web::{middleware, web, App, HttpServer};
 use diesel::pg::PgConnection;
 use diesel::r2d2::{self, ConnectionManager};
 use log::{error, info};
+use std::env;
 
 mod error;
 mod models;
@@ -12,6 +13,8 @@ mod resource;
 mod schema;
 
 static DATABASE_URL: &'static str = "DATABASE_URL";
+static DOMAIN: &'static str = "DOMAIN";
+static PORT: &'static str = "PORT";
 
 type Pool = r2d2::Pool<ConnectionManager<PgConnection>>;
 
@@ -20,13 +23,16 @@ fn main() {
     std::env::set_var("RUST_LOG", "pandas_sports=info,actix_web=info,diesel=info");
     env_logger::init();
 
-    let db_url = match std::env::var(DATABASE_URL) {
+    let db_url = match env::var(DATABASE_URL) {
         Ok(v) => v,
         Err(e) => {
             error!("{}: {}", DATABASE_URL, e);
             std::process::exit(1);
         }
     };
+
+    let domain = env::var(DOMAIN).unwrap_or("localhost".to_string());
+    let port = env::var(PORT).unwrap_or("8080".to_string());
 
     let manager = ConnectionManager::<PgConnection>::new(db_url);
     let pool: Pool = r2d2::Pool::builder()
@@ -69,7 +75,7 @@ fn main() {
                     ),
             )
     })
-    .bind("localhost:8080")
+    .bind(&format!("{}:{}", domain, port))
     .unwrap()
     .run()
     .unwrap();

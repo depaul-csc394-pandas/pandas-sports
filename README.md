@@ -1,5 +1,7 @@
 # Pandas Sports Service
 
+[![Build Status](https://travis-ci.org/depaul-csc394-pandas/pandas-sports.svg?branch=master)](https://travis-ci.org/depaul-csc394-pandas/pandas-sports)
+
 ### Setup
 
 - Install PostgreSQL

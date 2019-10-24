@@ -11,7 +11,7 @@ jobs:
     - rust: nightly
   fast_finish: true
 before_install:
-  - pip install pipenv
+  - sudo pip install pipenv
   - pipenv install
 before_script:
   - echo "DATABASE_URL=postgres://postgres@localhost/pandas_sports" > .env

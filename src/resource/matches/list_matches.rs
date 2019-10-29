@@ -2,7 +2,9 @@ use crate::{
     error::{self, ServiceError},
     filter_query,
     models::{api, sql},
-    order_query, Pool,
+    order_query,
+    resource::matches::get_match_details,
+    Pool,
 };
 use actix_web::{web, HttpRequest, HttpResponse, Responder};
 use diesel::prelude::*;
@@ -141,7 +143,11 @@ fn list_query(
         .load::<sql::Match>(&conn)
         .map_err(error::from_diesel)?
         .into_iter()
-        .map(api::GetMatch::from)
+        .map(|ref m| api::GetMatch {
+            id: m.id,
+            match_common: api::MatchCommon::from(m),
+            details: get_match_details(pool.clone(), m).unwrap(),
+        })
         .collect();
 
     Ok(Response { matches })

@@ -1,27 +1,40 @@
 table! {
-    baseball (id) {
-        id -> Int4,
+    baseball (match_id, team_id) {
+        match_id -> Int4,
+        team_id -> Int4,
         dummy -> Nullable<Int4>,
     }
 }
 
 table! {
-    basketball (id) {
-        id -> Int4,
+    basketball (match_id, team_id) {
+        match_id -> Int4,
+        team_id -> Int4,
+        q1 -> Nullable<Int4>,
+        q2 -> Nullable<Int4>,
+        q3 -> Nullable<Int4>,
+        q4 -> Nullable<Int4>,
+        fgm -> Nullable<Int4>,
+        fga -> Nullable<Int4>,
+        tpm -> Nullable<Int4>,
+        tpa -> Nullable<Int4>,
+        ftm -> Nullable<Int4>,
+        fta -> Nullable<Int4>,
+    }
+}
+
+table! {
+    football (match_id, team_id) {
+        match_id -> Int4,
+        team_id -> Int4,
         dummy -> Nullable<Int4>,
     }
 }
 
 table! {
-    football (id) {
-        id -> Int4,
-        dummy -> Nullable<Int4>,
-    }
-}
-
-table! {
-    hockey (id) {
-        id -> Int4,
+    hockey (match_id, team_id) {
+        match_id -> Int4,
+        team_id -> Int4,
         dummy -> Nullable<Int4>,
     }
 }
@@ -37,12 +50,6 @@ table! {
         team_2_id -> Int4,
         team_1_score -> Int4,
         team_2_score -> Int4,
-        basketball_id -> Nullable<Int4>,
-        baseball_id -> Nullable<Int4>,
-        football_id -> Nullable<Int4>,
-        hockey_id -> Nullable<Int4>,
-        volleyball_id -> Nullable<Int4>,
-        soccer_id -> Nullable<Int4>,
     }
 }
 
@@ -67,8 +74,9 @@ table! {
 }
 
 table! {
-    soccer (id) {
-        id -> Int4,
+    soccer (match_id, team_id) {
+        match_id -> Int4,
+        team_id -> Int4,
         dummy -> Nullable<Int4>,
     }
 }
@@ -81,20 +89,27 @@ table! {
 }
 
 table! {
-    volleyball (id) {
-        id -> Int4,
+    volleyball (match_id, team_id) {
+        match_id -> Int4,
+        team_id -> Int4,
         dummy -> Nullable<Int4>,
     }
 }
 
-joinable!(matches -> baseball (baseball_id));
-joinable!(matches -> basketball (basketball_id));
-joinable!(matches -> football (football_id));
-joinable!(matches -> hockey (hockey_id));
-joinable!(matches -> soccer (soccer_id));
-joinable!(matches -> volleyball (volleyball_id));
+joinable!(baseball -> matches (match_id));
+joinable!(baseball -> teams (team_id));
+joinable!(basketball -> matches (match_id));
+joinable!(basketball -> teams (team_id));
+joinable!(football -> matches (match_id));
+joinable!(football -> teams (team_id));
+joinable!(hockey -> matches (match_id));
+joinable!(hockey -> teams (team_id));
 joinable!(rosters -> players (player_id));
 joinable!(rosters -> teams (team_id));
+joinable!(soccer -> matches (match_id));
+joinable!(soccer -> teams (team_id));
+joinable!(volleyball -> matches (match_id));
+joinable!(volleyball -> teams (team_id));
 
 allow_tables_to_appear_in_same_query!(
     baseball,

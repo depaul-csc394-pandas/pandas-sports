@@ -1,6 +1,6 @@
 use crate::{
     error::{self, ServiceError},
-    models::{api, sql},
+    models::{api, sql, Sport},
     Pool,
 };
 use actix_web::{web, HttpRequest, HttpResponse, Responder};
@@ -33,16 +33,24 @@ impl Responder for Response {
 }
 
 fn query(path: web::Path<PathParams>, pool: web::Data<Pool>) -> Result<Response, ServiceError> {
-    use crate::schema::matches::dsl::*;
     let conn = pool.get().map_err(error::unavailable)?;
 
-    let match_: sql::Match = matches
-        .find(path.id)
-        .get_result(&conn)
-        .map_err(error::from_diesel)?;
+    let match_: sql::Match = {
+        use crate::schema::matches::dsl::*;
+        matches
+            .find(path.id)
+            .get_result(&conn)
+            .map_err(error::from_diesel)?
+    };
+
+    let details = crate::resource::matches::get_match_details(pool, &match_)?;
 
     Ok(Response {
-        match_: match_.into(),
+        match_: api::GetMatch {
+            id: match_.id,
+            match_common: api::MatchCommon::from(match_),
+            details,
+        },
     })
 }
 

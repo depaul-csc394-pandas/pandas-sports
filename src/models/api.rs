@@ -14,15 +14,52 @@ pub struct MatchCommon {
     pub team_2_score: i32,
 }
 
+impl<M> From<M> for MatchCommon
+where
+    M: std::borrow::Borrow<sql::Match>,
+{
+    fn from(match_: M) -> Self {
+        let m = match_.borrow();
+
+        MatchCommon {
+            start_time: m.start_time,
+            duration_seconds: m.duration_seconds,
+            location: m.location.clone(),
+            team_1_id: m.team_1_id,
+            team_2_id: m.team_2_id,
+            team_1_score: m.team_1_score,
+            team_2_score: m.team_2_score,
+        }
+    }
+}
+
 #[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(rename_all = "snake_case", tag = "sport")]
 pub enum GetMatchDetails {
-    Baseball { details_id: i32 },
-    Basketball { details_id: i32 },
-    Football { details_id: i32 },
-    Hockey { details_id: i32 },
-    Soccer { details_id: i32 },
-    Volleyball { details_id: i32 },
+    Baseball {
+        team_1: sql::Baseball,
+        team_2: sql::Baseball,
+    },
+    Basketball {
+        team_1: sql::Basketball,
+        team_2: sql::Basketball,
+    },
+    Football {
+        team_1: sql::Football,
+        team_2: sql::Football,
+    },
+    Hockey {
+        team_1: sql::Hockey,
+        team_2: sql::Hockey,
+    },
+    Soccer {
+        team_1: sql::Soccer,
+        team_2: sql::Soccer,
+    },
+    Volleyball {
+        team_1: sql::Volleyball,
+        team_2: sql::Volleyball,
+    },
 }
 
 #[derive(Clone, Serialize)]
@@ -33,71 +70,44 @@ pub struct GetMatch {
     pub details: GetMatchDetails,
 }
 
-impl From<sql::Match> for GetMatch {
-    fn from(m: sql::Match) -> Self {
-        let details = match m.sport {
-            models::Sport::Baseball => GetMatchDetails::Baseball {
-                details_id: m.baseball_id.unwrap(),
-            },
-            models::Sport::Basketball => GetMatchDetails::Basketball {
-                details_id: m.basketball_id.unwrap(),
-            },
-            models::Sport::Football => GetMatchDetails::Football {
-                details_id: m.football_id.unwrap(),
-            },
-            models::Sport::Hockey => GetMatchDetails::Hockey {
-                details_id: m.hockey_id.unwrap(),
-            },
-            models::Sport::Soccer => GetMatchDetails::Soccer {
-                details_id: m.soccer_id.unwrap(),
-            },
-            models::Sport::Volleyball => GetMatchDetails::Volleyball {
-                details_id: m.volleyball_id.unwrap(),
-            },
-        };
-
-        GetMatch {
-            id: m.id,
-            match_common: MatchCommon {
-                start_time: m.start_time.clone(),
-                duration_seconds: m.duration_seconds.clone(),
-                location: m.location.clone(),
-                team_1_id: m.team_1_id,
-                team_2_id: m.team_2_id,
-                team_1_score: m.team_1_score,
-                team_2_score: m.team_2_score,
-            },
-            details,
-        }
-    }
-}
-
 #[derive(Clone, Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "snake_case", tag = "sport")]
 pub enum PostMatchDetails {
     Baseball {
         #[serde(flatten)]
-        details: sql::NewBaseball,
+        team_1: sql::Baseball,
+        #[serde(flatten)]
+        team_2: sql::Baseball,
     },
     Basketball {
         #[serde(flatten)]
-        details: sql::NewBasketball,
+        team_1: sql::Basketball,
+        #[serde(flatten)]
+        team_2: sql::Basketball,
     },
     Football {
         #[serde(flatten)]
-        details: sql::NewFootball,
+        team_1: sql::Football,
+        #[serde(flatten)]
+        team_2: sql::Football,
     },
     Hockey {
         #[serde(flatten)]
-        details: sql::NewHockey,
+        team_1: sql::Hockey,
+        #[serde(flatten)]
+        team_2: sql::Hockey,
     },
     Soccer {
         #[serde(flatten)]
-        details: sql::NewSoccer,
+        team_1: sql::Soccer,
+        #[serde(flatten)]
+        team_2: sql::Soccer,
     },
     Volleyball {
         #[serde(flatten)]
-        details: sql::NewVolleyball,
+        team_1: sql::Volleyball,
+        #[serde(flatten)]
+        team_2: sql::Volleyball,
     },
 }
 
@@ -140,13 +150,35 @@ mod tests {
 
     #[test]
     fn test_get_match_details_serialize() {
-        let src = GetMatchDetails::Volleyball { details_id: 42 };
+        let src = GetMatchDetails::Volleyball {
+            team_1: sql::Volleyball {
+                match_id: 1,
+                team_id: 5,
+                dummy: Some(7),
+            },
+            team_2: sql::Volleyball {
+                match_id: 1,
+                team_id: 7,
+                dummy: Some(12),
+            },
+        };
 
         assert_eq!(
             serde_json::to_value(src).expect("serialization failed"),
             json!({
                 "sport": "volleyball",
-                "details_id": 42,
+                "details": {
+                    "team_1": {
+                        "match_id": 1,
+                        "team_id": 5,
+                        "dummy": 7,
+                    },
+                    "team_2": {
+                        "match_id": 1,
+                        "team_id": 7,
+                        "dummy": 12,
+                    },
+                },
             })
         );
     }
@@ -164,7 +196,18 @@ mod tests {
                 team_1_score: 21,
                 team_2_score: 7,
             },
-            details: GetMatchDetails::Football { details_id: 42 },
+            details: GetMatchDetails::Football {
+                team_1: sql::Football {
+                    match_id: 42,
+                    team_id: 6,
+                    dummy: Some(21),
+                },
+                team_2: sql::Football {
+                    match_id: 42,
+                    team_id: 17,
+                    dummy: Some(40),
+                },
+            },
         };
 
         assert_eq!(
@@ -180,7 +223,16 @@ mod tests {
                 "team_2_score": 7,
                 "details": {
                     "sport": "football",
-                    "details_id": 42,
+                    "team_1": {
+                        "match_id": 42,
+                        "team_id": 6,
+                        "dummy": 21,
+                    },
+                    "team_2": {
+                        "match_id": 42,
+                        "team_id": 17,
+                        "dummy": 40,
+                    },
                 }
             })
         );
@@ -190,13 +242,31 @@ mod tests {
     fn test_post_match_details_deserialize() {
         let src = json!({
             "sport": "hockey",
-            "dummy": 1,
+            "team_1": {
+                "match_id": 57,
+                "team_id": 24,
+                "dummy": 7,
+            },
+            "team_2": {
+                "match_id": 57,
+                "team_id": 72,
+                "dummy": 2,
+            },
         });
 
         assert_eq!(
             PostMatchDetails::deserialize(src).expect("deserialization failed"),
             PostMatchDetails::Hockey {
-                details: models::sql::NewHockey { dummy: Some(1) }
+                team_1: sql::Hockey {
+                    match_id: 57,
+                    team_id: 24,
+                    dummy: Some(7),
+                },
+                team_2: sql::Hockey {
+                    match_id: 57,
+                    team_id: 72,
+                    dummy: Some(2),
+                },
             }
         );
     }
@@ -212,8 +282,15 @@ mod tests {
             "team_1_score": 9001,
             "team_2_score": 26,
             "details": {
-                "sport": "baseball",
-                "dummy": 99,
+                "sport": "basketball",
+                "team_1": {
+                    "match_id": 257,
+                    "team_id": 12,
+                    "q1": 21,
+                    "q2": 17,
+                    "q3": 30,
+                    "q4": 19,
+                },
             },
         });
 
@@ -229,8 +306,15 @@ mod tests {
                     team_1_score: 9001,
                     team_2_score: 26,
                 },
-                details: PostMatchDetails::Baseball {
-                    details: models::sql::NewBaseball { dummy: Some(99) }
+                details: PostMatchDetails::Basketball {
+                    team_1: models::sql::Basketball {
+                        match_id: 257,
+                        team_id: 12,
+                        q1: Some(21),
+                        q2: Some(17),
+                        q3: Some(30),
+                        q4: Some(19),
+                    }
                 }
             }
         );

@@ -67,83 +67,62 @@ pub struct Match {
     pub team_2_id: i32,
     pub team_1_score: i32,
     pub team_2_score: i32,
-    pub basketball_id: Option<i32>,
-    pub baseball_id: Option<i32>,
-    pub football_id: Option<i32>,
-    pub hockey_id: Option<i32>,
-    pub volleyball_id: Option<i32>,
-    pub soccer_id: Option<i32>,
 }
 
-#[derive(Debug, PartialEq, Queryable, Deserialize, Serialize, Clone)]
-pub struct Baseball {
-    pub id: i32,
-    pub dummy: Option<i32>,
-}
-
-#[derive(Debug, PartialEq, Insertable, Deserialize, Clone)]
+#[derive(Debug, PartialEq, Insertable, Queryable, Deserialize, Serialize, Clone)]
 #[table_name = "baseball"]
-pub struct NewBaseball {
+pub struct Baseball {
+    pub match_id: i32,
+    pub team_id: i32,
     pub dummy: Option<i32>,
 }
 
-#[derive(Debug, PartialEq, Queryable, Deserialize, Serialize, Clone)]
-pub struct Basketball {
-    pub id: i32,
-    pub dummy: Option<i32>,
-}
-
-#[derive(Debug, PartialEq, Insertable, Deserialize, Clone)]
+#[derive(Debug, PartialEq, Insertable, Queryable, Deserialize, Serialize, Clone)]
 #[table_name = "basketball"]
-pub struct NewBasketball {
-    pub dummy: Option<i32>,
+pub struct Basketball {
+    pub match_id: i32,
+    pub team_id: i32,
+    pub q1: Option<i32>,
+    pub q2: Option<i32>,
+    pub q3: Option<i32>,
+    pub q4: Option<i32>,
+    pub fgm: Option<i32>,
+    pub fga: Option<i32>,
+    pub tpm: Option<i32>,
+    pub tpa: Option<i32>,
+    pub ftm: Option<i32>,
+    pub fta: Option<i32>,
 }
 
-#[derive(Debug, PartialEq, Queryable, Deserialize, Serialize, Clone)]
-pub struct Football {
-    pub id: i32,
-    pub dummy: Option<i32>,
-}
-
-#[derive(Debug, PartialEq, Insertable, Deserialize, Clone)]
+#[derive(Debug, PartialEq, Insertable, Queryable, Deserialize, Serialize, Clone)]
 #[table_name = "football"]
-pub struct NewFootball {
+pub struct Football {
+    pub match_id: i32,
+    pub team_id: i32,
     pub dummy: Option<i32>,
 }
 
-#[derive(Debug, PartialEq, Queryable, Deserialize, Serialize, Clone)]
-pub struct Hockey {
-    pub id: i32,
-    pub dummy: Option<i32>,
-}
-
-#[derive(Debug, PartialEq, Insertable, Deserialize, Clone)]
+#[derive(Debug, PartialEq, Insertable, Queryable, Deserialize, Serialize, Clone)]
 #[table_name = "hockey"]
-pub struct NewHockey {
+pub struct Hockey {
+    pub match_id: i32,
+    pub team_id: i32,
     pub dummy: Option<i32>,
 }
 
-#[derive(Debug, PartialEq, Queryable, Deserialize, Serialize, Clone)]
-pub struct Soccer {
-    pub id: i32,
-    pub dummy: Option<i32>,
-}
-
-#[derive(Debug, PartialEq, Insertable, Deserialize, Clone)]
+#[derive(Debug, PartialEq, Insertable, Queryable, Deserialize, Serialize, Clone)]
 #[table_name = "soccer"]
-pub struct NewSoccer {
+pub struct Soccer {
+    pub match_id: i32,
+    pub team_id: i32,
     pub dummy: Option<i32>,
 }
 
-#[derive(Debug, PartialEq, Queryable, Deserialize, Serialize, Clone)]
-pub struct Volleyball {
-    pub id: i32,
-    pub dummy: Option<i32>,
-}
-
-#[derive(Debug, PartialEq, Insertable, Deserialize, Clone)]
+#[derive(Debug, PartialEq, Insertable, Queryable, Deserialize, Serialize, Clone)]
 #[table_name = "volleyball"]
-pub struct NewVolleyball {
+pub struct Volleyball {
+    pub match_id: i32,
+    pub team_id: i32,
     pub dummy: Option<i32>,
 }
 
@@ -158,12 +137,6 @@ pub struct NewMatch {
     pub team_1_score: i32,
     pub team_2_id: i32,
     pub team_2_score: i32,
-    pub basketball_id: Option<i32>,
-    pub baseball_id: Option<i32>,
-    pub football_id: Option<i32>,
-    pub hockey_id: Option<i32>,
-    pub volleyball_id: Option<i32>,
-    pub soccer_id: Option<i32>,
 }
 
 impl From<api::PostMatch> for NewMatch {
@@ -196,12 +169,6 @@ impl From<api::PostMatch> for NewMatch {
             team_2_id,
             team_1_score,
             team_2_score,
-            basketball_id: None,
-            baseball_id: None,
-            football_id: None,
-            hockey_id: None,
-            volleyball_id: None,
-            soccer_id: None,
         }
     }
 }

@@ -71,31 +71,70 @@ pub struct GetMatch {
 }
 
 #[derive(Clone, Debug, PartialEq, Deserialize)]
+pub struct PostMatchDetailsBaseball {
+    pub dummy: Option<i32>,
+}
+
+#[derive(Clone, Debug, PartialEq, Deserialize)]
+pub struct PostMatchDetailsBasketball {
+    pub q1: Option<i32>,
+    pub q2: Option<i32>,
+    pub q3: Option<i32>,
+    pub q4: Option<i32>,
+    pub fgm: Option<i32>,
+    pub fga: Option<i32>,
+    pub tpm: Option<i32>,
+    pub tpa: Option<i32>,
+    pub ftm: Option<i32>,
+    pub fta: Option<i32>,
+}
+
+#[derive(Clone, Debug, PartialEq, Deserialize)]
+pub struct PostMatchDetailsFootball {
+    pub dummy: Option<i32>,
+}
+
+#[derive(Clone, Debug, PartialEq, Deserialize)]
+pub struct PostMatchDetailsHockey {
+    pub dummy: Option<i32>,
+}
+
+#[derive(Clone, Debug, PartialEq, Deserialize)]
+pub struct PostMatchDetailsSoccer {
+    pub dummy: Option<i32>,
+}
+
+#[derive(Clone, Debug, PartialEq, Deserialize)]
+pub struct PostMatchDetailsVolleyball {
+    pub dummy: Option<i32>,
+}
+
+#[derive(Clone, Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "snake_case", tag = "sport")]
 pub enum PostMatchDetails {
     Baseball {
-        team_1: sql::Baseball,
-        team_2: sql::Baseball,
+        team_1: PostMatchDetailsBaseball,
+        team_2: PostMatchDetailsBaseball,
     },
     Basketball {
-        team_1: sql::Basketball,
-        team_2: sql::Basketball,
+        team_1: PostMatchDetailsBasketball,
+        team_2: PostMatchDetailsBasketball,
     },
     Football {
-        team_1: sql::Football,
-        team_2: sql::Football,
+        team_1: PostMatchDetailsFootball,
+        team_2: PostMatchDetailsFootball,
     },
     Hockey {
-        team_1: sql::Hockey,
-        team_2: sql::Hockey,
+        team_1: PostMatchDetailsHockey,
+        team_2: PostMatchDetailsHockey,
     },
     Soccer {
-        team_1: sql::Soccer,
-        team_2: sql::Soccer,
+        team_1: PostMatchDetailsSoccer,
+        team_2: PostMatchDetailsSoccer,
     },
     Volleyball {
-        team_1: sql::Volleyball,
-        team_2: sql::Volleyball,
+        team_1: PostMatchDetailsVolleyball,
+        team_2: PostMatchDetailsVolleyball,
     },
 }
 
@@ -243,14 +282,10 @@ mod tests {
         assert_eq!(
             PostMatchDetails::deserialize(src).expect("deserialization failed"),
             PostMatchDetails::Hockey {
-                team_1: sql::Hockey {
-                    match_id: 57,
-                    team_id: 24,
+                team_1: PostMatchDetailsHockey {
                     dummy: Some(7),
                 },
-                team_2: sql::Hockey {
-                    match_id: 57,
-                    team_id: 72,
+                team_2: PostMatchDetailsHockey {
                     dummy: Some(2),
                 },
             }
@@ -270,8 +305,6 @@ mod tests {
             "details": {
                 "sport": "basketball",
                 "team_1": {
-                    "match_id": 257,
-                    "team_id": 12,
                     "q1": 21,
                     "q2": 17,
                     "q3": 30,
@@ -281,11 +314,9 @@ mod tests {
                     "tpm": 6,
                     "tpa": 14,
                     "ftm": 7,
-                    "fta": 9,
+                    "fta": 9
                 },
                 "team_2": {
-                    "match_id": 257,
-                    "team_id": 16,
                     "q1": 27,
                     "q2": 14,
                     "q3": 19,
@@ -295,9 +326,9 @@ mod tests {
                     "tpm": 7,
                     "tpa": 12,
                     "ftm": 6,
-                    "fta": 6,
+                    "fta": 6
                 }
-            },
+            }
         });
 
         assert_eq!(
@@ -313,9 +344,7 @@ mod tests {
                     team_2_score: 26,
                 },
                 details: PostMatchDetails::Basketball {
-                    team_1: sql::Basketball {
-                        match_id: 257,
-                        team_id: 12,
+                    team_1: PostMatchDetailsBasketball {
                         q1: Some(21),
                         q2: Some(17),
                         q3: Some(30),
@@ -327,9 +356,7 @@ mod tests {
                         ftm: Some(7),
                         fta: Some(9),
                     },
-                    team_2: sql::Basketball {
-                        match_id: 257,
-                        team_id: 16,
+                    team_2: PostMatchDetailsBasketball {
                         q1: Some(27),
                         q2: Some(14),
                         q3: Some(19),

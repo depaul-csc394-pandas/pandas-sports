@@ -74,39 +74,27 @@ pub struct GetMatch {
 #[serde(rename_all = "snake_case", tag = "sport")]
 pub enum PostMatchDetails {
     Baseball {
-        #[serde(flatten)]
         team_1: sql::Baseball,
-        #[serde(flatten)]
         team_2: sql::Baseball,
     },
     Basketball {
-        #[serde(flatten)]
         team_1: sql::Basketball,
-        #[serde(flatten)]
         team_2: sql::Basketball,
     },
     Football {
-        #[serde(flatten)]
         team_1: sql::Football,
-        #[serde(flatten)]
         team_2: sql::Football,
     },
     Hockey {
-        #[serde(flatten)]
         team_1: sql::Hockey,
-        #[serde(flatten)]
         team_2: sql::Hockey,
     },
     Soccer {
-        #[serde(flatten)]
         team_1: sql::Soccer,
-        #[serde(flatten)]
         team_2: sql::Soccer,
     },
     Volleyball {
-        #[serde(flatten)]
         team_1: sql::Volleyball,
-        #[serde(flatten)]
         team_2: sql::Volleyball,
     },
 }
@@ -167,17 +155,15 @@ mod tests {
             serde_json::to_value(src).expect("serialization failed"),
             json!({
                 "sport": "volleyball",
-                "details": {
-                    "team_1": {
-                        "match_id": 1,
-                        "team_id": 5,
-                        "dummy": 7,
-                    },
-                    "team_2": {
-                        "match_id": 1,
-                        "team_id": 7,
-                        "dummy": 12,
-                    },
+                "team_1": {
+                    "match_id": 1,
+                    "team_id": 5,
+                    "dummy": 7,
+                },
+                "team_2": {
+                    "match_id": 1,
+                    "team_id": 7,
+                    "dummy": 12,
                 },
             })
         );
@@ -290,7 +276,27 @@ mod tests {
                     "q2": 17,
                     "q3": 30,
                     "q4": 19,
+                    "fgm": 17,
+                    "fga": 44,
+                    "tpm": 6,
+                    "tpa": 14,
+                    "ftm": 7,
+                    "fta": 9,
                 },
+                "team_2": {
+                    "match_id": 257,
+                    "team_id": 16,
+                    "q1": 27,
+                    "q2": 14,
+                    "q3": 19,
+                    "q4": 29,
+                    "fgm": 13,
+                    "fga": 39,
+                    "tpm": 7,
+                    "tpa": 12,
+                    "ftm": 6,
+                    "fta": 6,
+                }
             },
         });
 
@@ -307,13 +313,33 @@ mod tests {
                     team_2_score: 26,
                 },
                 details: PostMatchDetails::Basketball {
-                    team_1: models::sql::Basketball {
+                    team_1: sql::Basketball {
                         match_id: 257,
                         team_id: 12,
                         q1: Some(21),
                         q2: Some(17),
                         q3: Some(30),
                         q4: Some(19),
+                        fgm: Some(17),
+                        fga: Some(44),
+                        tpm: Some(6),
+                        tpa: Some(14),
+                        ftm: Some(7),
+                        fta: Some(9),
+                    },
+                    team_2: sql::Basketball {
+                        match_id: 257,
+                        team_id: 16,
+                        q1: Some(27),
+                        q2: Some(14),
+                        q3: Some(19),
+                        q4: Some(29),
+                        fgm: Some(13),
+                        fga: Some(39),
+                        tpm: Some(7),
+                        tpa: Some(12),
+                        ftm: Some(6),
+                        fta: Some(6),
                     }
                 }
             }

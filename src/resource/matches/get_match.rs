@@ -84,7 +84,18 @@ mod tests {
                     team_1_score: 21,
                     team_2_score: 17,
                 },
-                details: api::GetMatchDetails::Football { details_id: 24 },
+                details: api::GetMatchDetails::Football {
+                    team_1: sql::Football {
+                        match_id: 42,
+                        team_id: 6,
+                        dummy: Some(21),
+                    },
+                    team_2: sql::Football {
+                        match_id: 42,
+                        team_id: 17,
+                        dummy: Some(40),
+                    },
+                },
             },
         };
 
@@ -102,7 +113,16 @@ mod tests {
                     "team_2_score": 17,
                     "details": {
                         "sport": "football",
-                        "details_id": 24,
+                        "team_1": {
+                            "match_id": 42,
+                            "team_id": 6,
+                            "dummy": 21,
+                        },
+                        "team_2": {
+                            "match_id": 42,
+                            "team_id": 17,
+                            "dummy": 40,
+                        },
                     }
                 }
             })

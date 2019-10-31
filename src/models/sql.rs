@@ -74,7 +74,9 @@ pub struct Match {
 pub struct Baseball {
     pub match_id: i32,
     pub team_id: i32,
-    pub dummy: Option<i32>,
+    pub inning_runs: Option<Vec<i32>>,
+    pub hits: Option<i32>,
+    pub errors: Option<i32>,
 }
 
 #[derive(Debug, PartialEq, Insertable, Queryable, Deserialize, Serialize, Clone)]

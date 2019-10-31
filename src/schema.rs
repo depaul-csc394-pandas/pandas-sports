@@ -2,7 +2,9 @@ table! {
     baseball (match_id, team_id) {
         match_id -> Int4,
         team_id -> Int4,
-        dummy -> Nullable<Int4>,
+        inning_runs -> Nullable<Array<Int4>>,
+        hits -> Nullable<Int4>,
+        errors -> Nullable<Int4>,
     }
 }
 

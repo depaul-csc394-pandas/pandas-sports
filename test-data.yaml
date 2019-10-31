@@ -19,9 +19,13 @@ matches:
       details:
         sport: baseball
         team_1:
-          dummy: 99
+          inning_runs: [1, 0, 0, 2, 0, 2, 0, 0, 0]
+          hits: 12
+          errors: 1
         team_2:
-          dummy: 47
+          inning_runs: [0, 1, 0, 0, 1, 0, 0, 0, 0]
+          hits: 7
+          errors: 2
   - match:
       start_time: '2019-07-09T12:00:00Z'
       duration_seconds: 7

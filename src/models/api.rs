@@ -72,7 +72,9 @@ pub struct GetMatch {
 
 #[derive(Clone, Debug, PartialEq, Deserialize)]
 pub struct PostMatchDetailsBaseball {
-    pub dummy: Option<i32>,
+    pub inning_runs: Option<Vec<i32>>,
+    pub hits: Option<i32>,
+    pub errors: Option<i32>,
 }
 
 #[derive(Clone, Debug, PartialEq, Deserialize)]
@@ -282,12 +284,8 @@ mod tests {
         assert_eq!(
             PostMatchDetails::deserialize(src).expect("deserialization failed"),
             PostMatchDetails::Hockey {
-                team_1: PostMatchDetailsHockey {
-                    dummy: Some(7),
-                },
-                team_2: PostMatchDetailsHockey {
-                    dummy: Some(2),
-                },
+                team_1: PostMatchDetailsHockey { dummy: Some(7) },
+                team_2: PostMatchDetailsHockey { dummy: Some(2) },
             }
         );
     }

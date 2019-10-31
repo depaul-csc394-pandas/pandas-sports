@@ -56,7 +56,9 @@ fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<api::GetMat
                 .values(sql::Baseball {
                     match_id: match_.id,
                     team_id: match_.team_1_id,
-                    dummy: team_1.dummy,
+                    inning_runs: team_1.inning_runs.clone(),
+                    hits: team_1.hits,
+                    errors: team_1.errors,
                 })
                 .get_result(&conn)
                 .map_err(error::from_diesel)?;
@@ -64,7 +66,9 @@ fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<api::GetMat
                 .values(sql::Baseball {
                     match_id: match_.id,
                     team_id: match_.team_2_id,
-                    dummy: team_2.dummy,
+                    inning_runs: team_2.inning_runs.clone(),
+                    hits: team_2.hits,
+                    errors: team_2.errors,
                 })
                 .get_result(&conn)
                 .map_err(error::from_diesel)?;

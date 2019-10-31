@@ -18,7 +18,10 @@ matches:
       team_2_score: 2
       details:
         sport: baseball
-        dummy: 99
+        team_1:
+          dummy: 99
+        team_2:
+          dummy: 47
   - match:
       start_time: '2019-07-09T12:00:00Z'
       duration_seconds: 7
@@ -29,7 +32,28 @@ matches:
       team_2_score: 97
       details:
         sport: basketball
-        dummy: 17
+        team_1:
+          q1: 31
+          q2: 17
+          q3: 21
+          q4: 24
+          fgm: 42
+          fga: 63
+          tpm: 8
+          tpa: 12
+          ftm: 10
+          fta: 11
+        team_2:
+          q1: 26
+          q2: 21
+          q3: 19
+          q4: 23
+          fgm: 38
+          fga: 57
+          tpm: 5
+          tpa: 9
+          ftm: 9
+          fta: 12
   - match:
       start_time: '2019-07-09T12:00:00Z'
       duration_seconds: 7
@@ -40,7 +64,10 @@ matches:
       team_2_score: 7
       details:
         sport: football
-        dummy: 42
+        team_1:
+          dummy: 21
+        team_2:
+          dummy: 42
   - match:
       start_time: '2019-07-09T12:00:00Z'
       duration_seconds: 7
@@ -51,7 +78,10 @@ matches:
       team_2_score: 4
       details:
         sport: hockey
-        dummy: 101
+        team_1:
+          dummy: 6
+        team_2:
+          dummy: 4
   - match:
       start_time: '2019-07-09T12:00:00Z'
       duration_seconds: 7
@@ -62,4 +92,7 @@ matches:
       team_2_score: 0
       details:
         sport: volleyball
-        dummy: 76
+        team_1:
+          dummy: 42
+        team_2:
+          dummy: 6

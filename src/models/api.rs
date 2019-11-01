@@ -130,7 +130,7 @@ pub struct PostMatchDetailsSoccer {
 
 #[derive(Clone, Debug, PartialEq, Deserialize)]
 pub struct PostMatchDetailsVolleyball {
-    pub sets: Option<Vec<i32>>,
+    pub set_scores: Option<Vec<i32>>,
     pub sv_ace: Option<i32>,
     pub sv_err: Option<i32>,
     pub sv_att: Option<i32>,

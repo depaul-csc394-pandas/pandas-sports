@@ -253,7 +253,7 @@ fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<api::GetMat
                 .values(sql::Volleyball {
                     match_id: match_.id,
                     team_id: match_.team_1_id,
-                    set_scores: team_1.sets.clone(),
+                    set_scores: team_1.set_scores.clone(),
                     sv_ace: team_1.sv_ace,
                     sv_err: team_1.sv_err,
                     sv_att: team_1.sv_att,
@@ -269,7 +269,7 @@ fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<api::GetMat
                 .values(sql::Volleyball {
                     match_id: match_.id,
                     team_id: match_.team_2_id,
-                    set_scores: team_2.sets.clone(),
+                    set_scores: team_2.set_scores.clone(),
                     sv_ace: team_2.sv_ace,
                     sv_err: team_2.sv_err,
                     sv_att: team_2.sv_att,

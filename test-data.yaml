@@ -69,9 +69,29 @@ matches:
       details:
         sport: football
         team_1:
-          dummy: 21
+          q1: 7
+          q2: 3
+          q3: 14
+          q4: 10
+          td: 4
+          fg: 2
+          p_att: 28
+          p_comp: 24
+          yds_pass: 304
+          yds_rush: 215
         team_2:
-          dummy: 42
+          match_id: 42
+          team_id: 17
+          q1: 0
+          q2: 7
+          q3: 0
+          q4: 0
+          td: 1
+          fg: 0
+          p_att: 21
+          p_comp: 14
+          yds_pass: 118
+          yds_rush: 82
   - match:
       start_time: '2019-07-09T12:00:00Z'
       duration_seconds: 7

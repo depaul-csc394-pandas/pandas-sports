@@ -101,7 +101,16 @@ pub struct Basketball {
 pub struct Football {
     pub match_id: i32,
     pub team_id: i32,
-    pub dummy: Option<i32>,
+    pub q1: Option<i32>,
+    pub q2: Option<i32>,
+    pub q3: Option<i32>,
+    pub q4: Option<i32>,
+    pub td: Option<i32>,
+    pub fg: Option<i32>,
+    pub p_att: Option<i32>,
+    pub p_comp: Option<i32>,
+    pub yds_pass: Option<i32>,
+    pub yds_rush: Option<i32>,
 }
 
 #[derive(Debug, PartialEq, Insertable, Queryable, Deserialize, Serialize, Clone)]

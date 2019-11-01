@@ -29,7 +29,16 @@ table! {
     football (match_id, team_id) {
         match_id -> Int4,
         team_id -> Int4,
-        dummy -> Nullable<Int4>,
+        q1 -> Nullable<Int4>,
+        q2 -> Nullable<Int4>,
+        q3 -> Nullable<Int4>,
+        q4 -> Nullable<Int4>,
+        td -> Nullable<Int4>,
+        fg -> Nullable<Int4>,
+        p_att -> Nullable<Int4>,
+        p_comp -> Nullable<Int4>,
+        yds_pass -> Nullable<Int4>,
+        yds_rush -> Nullable<Int4>,
     }
 }
 

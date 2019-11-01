@@ -147,7 +147,15 @@ pub struct Soccer {
 pub struct Volleyball {
     pub match_id: i32,
     pub team_id: i32,
-    pub dummy: Option<i32>,
+    pub set_scores: Option<Vec<i32>>,
+    pub sv_ace: Option<i32>,
+    pub sv_err: Option<i32>,
+    pub sv_att: Option<i32>,
+    pub at_kill: Option<i32>,
+    pub at_err: Option<i32>,
+    pub at_att: Option<i32>,
+    pub rc_err: Option<i32>,
+    pub rc_att: Option<i32>,
 }
 
 #[derive(Deserialize, Insertable)]

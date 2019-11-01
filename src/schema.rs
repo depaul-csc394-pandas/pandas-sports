@@ -116,7 +116,15 @@ table! {
     volleyball (match_id, team_id) {
         match_id -> Int4,
         team_id -> Int4,
-        dummy -> Nullable<Int4>,
+        set_scores -> Nullable<Array<Int4>>,
+        sv_ace -> Nullable<Int4>,
+        sv_err -> Nullable<Int4>,
+        sv_att -> Nullable<Int4>,
+        at_kill -> Nullable<Int4>,
+        at_err -> Nullable<Int4>,
+        at_att -> Nullable<Int4>,
+        rc_err -> Nullable<Int4>,
+        rc_att -> Nullable<Int4>,
     }
 }
 

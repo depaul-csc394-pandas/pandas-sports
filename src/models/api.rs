@@ -130,7 +130,15 @@ pub struct PostMatchDetailsSoccer {
 
 #[derive(Clone, Debug, PartialEq, Deserialize)]
 pub struct PostMatchDetailsVolleyball {
-    pub dummy: Option<i32>,
+    pub sets: Option<Vec<i32>>,
+    pub sv_ace: Option<i32>,
+    pub sv_err: Option<i32>,
+    pub sv_att: Option<i32>,
+    pub at_kill: Option<i32>,
+    pub at_err: Option<i32>,
+    pub at_att: Option<i32>,
+    pub rc_err: Option<i32>,
+    pub rc_att: Option<i32>,
 }
 
 #[derive(Clone, Debug, PartialEq, Deserialize)]
@@ -205,12 +213,28 @@ mod tests {
             team_1: sql::Volleyball {
                 match_id: 1,
                 team_id: 5,
-                dummy: Some(7),
+                set_scores: Some(vec![25, 21, 25, 25]),
+                sv_ace: Some(7),
+                sv_err: Some(2),
+                sv_att: Some(12),
+                at_kill: Some(40),
+                at_err: Some(12),
+                at_att: Some(60),
+                rc_err: Some(9),
+                rc_att: Some(49),
             },
             team_2: sql::Volleyball {
                 match_id: 1,
                 team_id: 7,
-                dummy: Some(12),
+                set_scores: Some(vec![22, 25, 19, 21]),
+                sv_ace: Some(5),
+                sv_err: Some(4),
+                sv_att: Some(11),
+                at_kill: Some(31),
+                at_err: Some(15),
+                at_att: Some(51),
+                rc_err: Some(13),
+                rc_att: Some(42),
             },
         };
 
@@ -221,12 +245,28 @@ mod tests {
                 "team_1": {
                     "match_id": 1,
                     "team_id": 5,
-                    "dummy": 7,
+                    "set_scores": [25, 21, 25, 25],
+                    "sv_ace": 7,
+                    "sv_err": 2,
+                    "sv_att": 12,
+                    "at_kill": 40,
+                    "at_err": 12,
+                    "at_att": 60,
+                    "rc_err": 9,
+                    "rc_att": 49,
                 },
                 "team_2": {
                     "match_id": 1,
                     "team_id": 7,
-                    "dummy": 12,
+                    "set_scores": [22, 25, 19, 21],
+                    "sv_ace": 5,
+                    "sv_err": 4,
+                    "sv_att": 11,
+                    "at_kill": 31,
+                    "at_err": 15,
+                    "at_att": 51,
+                    "rc_err": 13,
+                    "rc_att": 42,
                 },
             })
         );

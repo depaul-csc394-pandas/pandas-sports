@@ -153,10 +153,26 @@ matches:
       team_1_id: 3
       team_2_id: 2
       team_1_score: 3
-      team_2_score: 0
+      team_2_score: 1
       details:
         sport: volleyball
         team_1:
-          dummy: 42
+          set_scores: [25, 21, 25, 25]
+          sv_ace: 7
+          sv_err: 2
+          sv_att: 12
+          at_kill: 40
+          at_err: 12
+          at_att: 60
+          rc_err: 9
+          rc_att: 49
         team_2:
-          dummy: 6
+          set_scores: [22, 25, 19, 21]
+          sv_ace: 5
+          sv_err: 4
+          sv_att: 11
+          at_kill: 31
+          at_err: 15
+          at_att: 51
+          rc_err: 13
+          rc_att: 42

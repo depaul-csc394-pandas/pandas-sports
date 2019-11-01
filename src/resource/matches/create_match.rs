@@ -253,7 +253,15 @@ fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<api::GetMat
                 .values(sql::Volleyball {
                     match_id: match_.id,
                     team_id: match_.team_1_id,
-                    dummy: team_1.dummy,
+                    set_scores: team_1.sets.clone(),
+                    sv_ace: team_1.sv_ace,
+                    sv_err: team_1.sv_err,
+                    sv_att: team_1.sv_att,
+                    at_kill: team_1.at_kill,
+                    at_err: team_1.at_err,
+                    at_att: team_1.at_att,
+                    rc_err: team_1.rc_err,
+                    rc_att: team_1.rc_att,
                 })
                 .get_result(&conn)
                 .map_err(error::from_diesel)?;
@@ -261,7 +269,15 @@ fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<api::GetMat
                 .values(sql::Volleyball {
                     match_id: match_.id,
                     team_id: match_.team_2_id,
-                    dummy: team_2.dummy,
+                    set_scores: team_2.sets.clone(),
+                    sv_ace: team_2.sv_ace,
+                    sv_err: team_2.sv_err,
+                    sv_att: team_2.sv_att,
+                    at_kill: team_2.at_kill,
+                    at_err: team_2.at_err,
+                    at_att: team_2.at_att,
+                    rc_err: team_2.rc_err,
+                    rc_att: team_2.rc_att,
                 })
                 .get_result(&conn)
                 .map_err(error::from_diesel)?;

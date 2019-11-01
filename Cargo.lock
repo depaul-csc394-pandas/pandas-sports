@@ -876,7 +876,7 @@ dependencies = [
 
 [[package]]
 name = "pandas-sports"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "actix-web 1.0.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "chrono 0.4.9 (registry+https://github.com/rust-lang/crates.io-index)",

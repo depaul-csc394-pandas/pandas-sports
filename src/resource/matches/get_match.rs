@@ -1,6 +1,6 @@
 use crate::{
     error::{self, ServiceError},
-    models::{api, sql},
+    models::{api, sql, Sport},
     Pool,
 };
 use actix_web::{web, HttpRequest, HttpResponse, Responder};
@@ -33,16 +33,24 @@ impl Responder for Response {
 }
 
 fn query(path: web::Path<PathParams>, pool: web::Data<Pool>) -> Result<Response, ServiceError> {
-    use crate::schema::matches::dsl::*;
     let conn = pool.get().map_err(error::unavailable)?;
 
-    let match_: sql::Match = matches
-        .find(path.id)
-        .get_result(&conn)
-        .map_err(error::from_diesel)?;
+    let match_: sql::Match = {
+        use crate::schema::matches::dsl::*;
+        matches
+            .find(path.id)
+            .get_result(&conn)
+            .map_err(error::from_diesel)?
+    };
+
+    let details = crate::resource::matches::get_match_details(pool, &match_)?;
 
     Ok(Response {
-        match_: match_.into(),
+        match_: api::GetMatch {
+            id: match_.id,
+            match_common: api::MatchCommon::from(match_),
+            details,
+        },
     })
 }
 
@@ -73,10 +81,39 @@ mod tests {
                     location: Some("DePaul University".to_string()),
                     team_1_id: 1,
                     team_2_id: 2,
-                    team_1_score: 21,
+                    team_1_score: 34,
                     team_2_score: 17,
                 },
-                details: api::GetMatchDetails::Football { details_id: 24 },
+                details: api::GetMatchDetails::Football {
+                    team_1: sql::Football {
+                        match_id: 42,
+                        team_id: 6,
+                        q1: Some(7),
+                        q2: Some(3),
+                        q3: Some(14),
+                        q4: Some(10),
+                        td: Some(4),
+                        fg: Some(2),
+                        p_att: Some(28),
+                        p_comp: Some(24),
+                        yds_pass: Some(304),
+                        yds_rush: Some(215),
+                    },
+                    team_2: sql::Football {
+                        match_id: 42,
+                        team_id: 17,
+                        q1: Some(0),
+                        q2: Some(7),
+                        q3: Some(0),
+                        q4: Some(0),
+                        td: Some(1),
+                        fg: Some(0),
+                        p_att: Some(21),
+                        p_comp: Some(14),
+                        yds_pass: Some(118),
+                        yds_rush: Some(82),
+                    },
+                },
             },
         };
 
@@ -90,11 +127,38 @@ mod tests {
                     "location": "DePaul University",
                     "team_1_id": 1,
                     "team_2_id": 2,
-                    "team_1_score": 21,
+                    "team_1_score": 34,
                     "team_2_score": 17,
                     "details": {
                         "sport": "football",
-                        "details_id": 24,
+                        "team_1": {
+                            "match_id": 42,
+                            "team_id": 6,
+                            "q1": 7,
+                            "q2": 3,
+                            "q3": 14,
+                            "q4": 10,
+                            "td": 4,
+                            "fg": 2,
+                            "p_att": 28,
+                            "p_comp": 24,
+                            "yds_pass": 304,
+                            "yds_rush": 215,
+                        },
+                        "team_2": {
+                            "match_id": 42,
+                            "team_id": 17,
+                            "q1": 0,
+                            "q2": 7,
+                            "q3": 0,
+                            "q4": 0,
+                            "td": 1,
+                            "fg": 0,
+                            "p_att": 21,
+                            "p_comp": 14,
+                            "yds_pass": 118,
+                            "yds_rush": 82,
+                        },
                     }
                 }
             })

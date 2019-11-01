@@ -1,6 +1,7 @@
 use actix_web::{error::BlockingError, HttpResponse};
 use diesel::result::{DatabaseErrorKind, Error as DieselError};
 use failure::{Error, Fail};
+use log::info;
 
 #[allow(dead_code)]
 #[derive(Clone, Copy, Debug)]
@@ -154,12 +155,20 @@ pub fn from_blocking(be: BlockingError<ServiceError>) -> ServiceError {
 pub fn from_diesel(de: DieselError) -> ServiceError {
     match de {
         DieselError::NotFound => not_found(de),
-        DieselError::DatabaseError(kind, _) => match kind {
+        DieselError::DatabaseError(kind, ref error_info) => match kind {
             DatabaseErrorKind::ForeignKeyViolation | DatabaseErrorKind::UniqueViolation => {
                 conflict(de)
             }
-            _ => internal(de),
+
+            _ => match error_info.constraint_name() {
+                Some(name) => {
+                    info!("request violates database constraint '{}'", name);
+                    bad_request(de)
+                }
+                None => internal(de),
+            },
         },
+
         _ => internal(de),
     }
 }

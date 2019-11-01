@@ -67,84 +67,95 @@ pub struct Match {
     pub team_2_id: i32,
     pub team_1_score: i32,
     pub team_2_score: i32,
-    pub basketball_id: Option<i32>,
-    pub baseball_id: Option<i32>,
-    pub football_id: Option<i32>,
-    pub hockey_id: Option<i32>,
-    pub volleyball_id: Option<i32>,
-    pub soccer_id: Option<i32>,
 }
 
-#[derive(Debug, PartialEq, Queryable, Deserialize, Serialize, Clone)]
-pub struct Baseball {
-    pub id: i32,
-    pub dummy: Option<i32>,
-}
-
-#[derive(Debug, PartialEq, Insertable, Deserialize, Clone)]
+#[derive(Debug, PartialEq, Insertable, Queryable, Deserialize, Serialize, Clone)]
 #[table_name = "baseball"]
-pub struct NewBaseball {
-    pub dummy: Option<i32>,
+pub struct Baseball {
+    pub match_id: i32,
+    pub team_id: i32,
+    pub inning_runs: Option<Vec<i32>>,
+    pub hits: Option<i32>,
+    pub errors: Option<i32>,
 }
 
-#[derive(Debug, PartialEq, Queryable, Deserialize, Serialize, Clone)]
-pub struct Basketball {
-    pub id: i32,
-    pub dummy: Option<i32>,
-}
-
-#[derive(Debug, PartialEq, Insertable, Deserialize, Clone)]
+#[derive(Debug, PartialEq, Insertable, Queryable, Deserialize, Serialize, Clone)]
 #[table_name = "basketball"]
-pub struct NewBasketball {
-    pub dummy: Option<i32>,
+pub struct Basketball {
+    pub match_id: i32,
+    pub team_id: i32,
+    pub q1: Option<i32>,
+    pub q2: Option<i32>,
+    pub q3: Option<i32>,
+    pub q4: Option<i32>,
+    pub fgm: Option<i32>,
+    pub fga: Option<i32>,
+    pub tpm: Option<i32>,
+    pub tpa: Option<i32>,
+    pub ftm: Option<i32>,
+    pub fta: Option<i32>,
 }
 
-#[derive(Debug, PartialEq, Queryable, Deserialize, Serialize, Clone)]
-pub struct Football {
-    pub id: i32,
-    pub dummy: Option<i32>,
-}
-
-#[derive(Debug, PartialEq, Insertable, Deserialize, Clone)]
+#[derive(Debug, PartialEq, Insertable, Queryable, Deserialize, Serialize, Clone)]
 #[table_name = "football"]
-pub struct NewFootball {
-    pub dummy: Option<i32>,
+pub struct Football {
+    pub match_id: i32,
+    pub team_id: i32,
+    pub q1: Option<i32>,
+    pub q2: Option<i32>,
+    pub q3: Option<i32>,
+    pub q4: Option<i32>,
+    pub td: Option<i32>,
+    pub fg: Option<i32>,
+    pub p_att: Option<i32>,
+    pub p_comp: Option<i32>,
+    pub yds_pass: Option<i32>,
+    pub yds_rush: Option<i32>,
 }
 
-#[derive(Debug, PartialEq, Queryable, Deserialize, Serialize, Clone)]
-pub struct Hockey {
-    pub id: i32,
-    pub dummy: Option<i32>,
-}
-
-#[derive(Debug, PartialEq, Insertable, Deserialize, Clone)]
+#[derive(Debug, PartialEq, Insertable, Queryable, Deserialize, Serialize, Clone)]
 #[table_name = "hockey"]
-pub struct NewHockey {
-    pub dummy: Option<i32>,
+pub struct Hockey {
+    pub match_id: i32,
+    pub team_id: i32,
+    pub sog: Option<i32>,
+    pub sm: Option<i32>,
+    pub fw: Option<i32>,
+    pub fl: Option<i32>,
+    pub sv: Option<i32>,
+    pub sa: Option<i32>,
 }
 
-#[derive(Debug, PartialEq, Queryable, Deserialize, Serialize, Clone)]
-pub struct Soccer {
-    pub id: i32,
-    pub dummy: Option<i32>,
-}
-
-#[derive(Debug, PartialEq, Insertable, Deserialize, Clone)]
+#[derive(Debug, PartialEq, Insertable, Queryable, Deserialize, Serialize, Clone)]
 #[table_name = "soccer"]
-pub struct NewSoccer {
-    pub dummy: Option<i32>,
+pub struct Soccer {
+    pub match_id: i32,
+    pub team_id: i32,
+    pub shots: Option<i32>,
+    pub sog: Option<i32>,
+    pub poss: Option<f32>,
+    pub passes: Option<i32>,
+    pub fouls: Option<i32>,
+    pub yellow: Option<i32>,
+    pub red: Option<i32>,
+    pub offsides: Option<i32>,
+    pub corners: Option<i32>,
 }
 
-#[derive(Debug, PartialEq, Queryable, Deserialize, Serialize, Clone)]
-pub struct Volleyball {
-    pub id: i32,
-    pub dummy: Option<i32>,
-}
-
-#[derive(Debug, PartialEq, Insertable, Deserialize, Clone)]
+#[derive(Debug, PartialEq, Insertable, Queryable, Deserialize, Serialize, Clone)]
 #[table_name = "volleyball"]
-pub struct NewVolleyball {
-    pub dummy: Option<i32>,
+pub struct Volleyball {
+    pub match_id: i32,
+    pub team_id: i32,
+    pub set_scores: Option<Vec<i32>>,
+    pub sv_ace: Option<i32>,
+    pub sv_err: Option<i32>,
+    pub sv_att: Option<i32>,
+    pub at_kill: Option<i32>,
+    pub at_err: Option<i32>,
+    pub at_att: Option<i32>,
+    pub rc_err: Option<i32>,
+    pub rc_att: Option<i32>,
 }
 
 #[derive(Deserialize, Insertable)]
@@ -158,12 +169,6 @@ pub struct NewMatch {
     pub team_1_score: i32,
     pub team_2_id: i32,
     pub team_2_score: i32,
-    pub basketball_id: Option<i32>,
-    pub baseball_id: Option<i32>,
-    pub football_id: Option<i32>,
-    pub hockey_id: Option<i32>,
-    pub volleyball_id: Option<i32>,
-    pub soccer_id: Option<i32>,
 }
 
 impl From<api::PostMatch> for NewMatch {
@@ -196,12 +201,6 @@ impl From<api::PostMatch> for NewMatch {
             team_2_id,
             team_1_score,
             team_2_score,
-            basketball_id: None,
-            baseball_id: None,
-            football_id: None,
-            hockey_id: None,
-            volleyball_id: None,
-            soccer_id: None,
         }
     }
 }

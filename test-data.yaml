@@ -18,7 +18,14 @@ matches:
       team_2_score: 2
       details:
         sport: baseball
-        dummy: 99
+        team_1:
+          inning_runs: [1, 0, 0, 2, 0, 2, 0, 0, 0]
+          hits: 12
+          errors: 1
+        team_2:
+          inning_runs: [0, 1, 0, 0, 1, 0, 0, 0, 0]
+          hits: 7
+          errors: 2
   - match:
       start_time: '2019-07-09T12:00:00Z'
       duration_seconds: 7
@@ -29,7 +36,28 @@ matches:
       team_2_score: 97
       details:
         sport: basketball
-        dummy: 17
+        team_1:
+          q1: 31
+          q2: 17
+          q3: 21
+          q4: 24
+          fgm: 42
+          fga: 63
+          tpm: 8
+          tpa: 12
+          ftm: 10
+          fta: 11
+        team_2:
+          q1: 26
+          q2: 21
+          q3: 19
+          q4: 23
+          fgm: 38
+          fga: 57
+          tpm: 5
+          tpa: 9
+          ftm: 9
+          fta: 12
   - match:
       start_time: '2019-07-09T12:00:00Z'
       duration_seconds: 7
@@ -40,7 +68,30 @@ matches:
       team_2_score: 7
       details:
         sport: football
-        dummy: 42
+        team_1:
+          q1: 7
+          q2: 3
+          q3: 14
+          q4: 10
+          td: 4
+          fg: 2
+          p_att: 28
+          p_comp: 24
+          yds_pass: 304
+          yds_rush: 215
+        team_2:
+          match_id: 42
+          team_id: 17
+          q1: 0
+          q2: 7
+          q3: 0
+          q4: 0
+          td: 1
+          fg: 0
+          p_att: 21
+          p_comp: 14
+          yds_pass: 118
+          yds_rush: 82
   - match:
       start_time: '2019-07-09T12:00:00Z'
       duration_seconds: 7
@@ -51,7 +102,50 @@ matches:
       team_2_score: 4
       details:
         sport: hockey
-        dummy: 101
+        team_1:
+          sog: 4
+          sm: 6
+          fw: 9
+          fl: 7
+          sv: 3
+          sa: 4
+        team_2:
+          sog: 5
+          sm: 8
+          fw: 7
+          fl: 9
+          sv: 4
+          sa: 5
+  - match:
+      start_time: '2019-10-31T22:14:16Z'
+      duration_seconds: 4278
+      location: Las Palmas, Gran Canaria, Spain
+      team_1_id: 3
+      team_2_id: 1
+      team_1_score: 4
+      team_2_score: 1
+      details:
+        sport: soccer
+        team_1:
+          shots: 12
+          sog: 8
+          poss: 0.64
+          passes: 426
+          fouls: 7
+          yellow: 2
+          red: 0
+          offsides: 5
+          corners: 12
+        team_2:
+          shots: 9
+          sog: 3
+          poss: 0.36
+          passes: 297
+          fouls: 11
+          yellow: 4
+          red: 1
+          offsides: 5
+          corners: 8
   - match:
       start_time: '2019-07-09T12:00:00Z'
       duration_seconds: 7
@@ -59,7 +153,26 @@ matches:
       team_1_id: 3
       team_2_id: 2
       team_1_score: 3
-      team_2_score: 0
+      team_2_score: 1
       details:
         sport: volleyball
-        dummy: 76
+        team_1:
+          set_scores: [25, 21, 25, 25]
+          sv_ace: 7
+          sv_err: 2
+          sv_att: 12
+          at_kill: 40
+          at_err: 12
+          at_att: 60
+          rc_err: 9
+          rc_att: 49
+        team_2:
+          set_scores: [22, 25, 19, 21]
+          sv_ace: 5
+          sv_err: 4
+          sv_att: 11
+          at_kill: 31
+          at_err: 15
+          at_att: 51
+          rc_err: 13
+          rc_att: 42

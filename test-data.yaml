@@ -117,6 +117,36 @@ matches:
           sv: 4
           sa: 5
   - match:
+      start_time: '2019-10-31T22:14:16Z'
+      duration_seconds: 4278
+      location: Las Palmas, Gran Canaria, Spain
+      team_1_id: 3
+      team_2_id: 1
+      team_1_score: 4
+      team_2_score: 1
+      details:
+        sport: soccer
+        team_1:
+          shots: 12
+          sog: 8
+          poss: 0.64
+          passes: 426
+          fouls: 7
+          yellow: 2
+          red: 0
+          offsides: 5
+          corners: 12
+        team_2:
+          shots: 9
+          sog: 3
+          poss: 0.36
+          passes: 297
+          fouls: 11
+          yellow: 4
+          red: 1
+          offsides: 5
+          corners: 8
+  - match:
       start_time: '2019-07-09T12:00:00Z'
       duration_seconds: 7
       location: Sao Paulo, Brazil

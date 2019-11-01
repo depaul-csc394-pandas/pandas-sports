@@ -93,7 +93,15 @@ table! {
     soccer (match_id, team_id) {
         match_id -> Int4,
         team_id -> Int4,
-        dummy -> Nullable<Int4>,
+        shots -> Nullable<Int4>,
+        sog -> Nullable<Int4>,
+        poss -> Nullable<Float4>,
+        passes -> Nullable<Int4>,
+        fouls -> Nullable<Int4>,
+        yellow -> Nullable<Int4>,
+        red -> Nullable<Int4>,
+        offsides -> Nullable<Int4>,
+        corners -> Nullable<Int4>,
     }
 }
 

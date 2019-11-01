@@ -211,7 +211,15 @@ fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<api::GetMat
                 .values(sql::Soccer {
                     match_id: match_.id,
                     team_id: match_.team_1_id,
-                    dummy: team_1.dummy,
+                    shots: team_1.shots,
+                    sog: team_1.sog,
+                    poss: team_1.poss,
+                    passes: team_1.passes,
+                    fouls: team_1.fouls,
+                    yellow: team_1.yellow,
+                    red: team_1.red,
+                    offsides: team_1.offsides,
+                    corners: team_1.corners,
                 })
                 .get_result(&conn)
                 .map_err(error::from_diesel)?;
@@ -219,7 +227,15 @@ fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<api::GetMat
                 .values(sql::Soccer {
                     match_id: match_.id,
                     team_id: match_.team_2_id,
-                    dummy: team_2.dummy,
+                    shots: team_2.shots,
+                    sog: team_2.sog,
+                    poss: team_2.poss,
+                    passes: team_2.passes,
+                    fouls: team_2.fouls,
+                    yellow: team_2.yellow,
+                    red: team_2.red,
+                    offsides: team_2.offsides,
+                    corners: team_2.corners,
                 })
                 .get_result(&conn)
                 .map_err(error::from_diesel)?;

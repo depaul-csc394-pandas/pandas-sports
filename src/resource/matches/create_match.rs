@@ -175,7 +175,12 @@ fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<api::GetMat
                 .values(sql::Hockey {
                     match_id: match_.id,
                     team_id: match_.team_1_id,
-                    dummy: team_1.dummy,
+                    sog: team_1.sog,
+                    sm: team_1.sm,
+                    fw: team_1.fw,
+                    fl: team_1.fl,
+                    sv: team_1.sv,
+                    sa: team_1.sa,
                 })
                 .get_result(&conn)
                 .map_err(error::from_diesel)?;
@@ -183,7 +188,12 @@ fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<api::GetMat
                 .values(sql::Hockey {
                     match_id: match_.id,
                     team_id: match_.team_2_id,
-                    dummy: team_2.dummy,
+                    sog: team_2.sog,
+                    sm: team_2.sm,
+                    fw: team_2.fw,
+                    fl: team_2.fl,
+                    sv: team_2.sv,
+                    sa: team_2.sa,
                 })
                 .get_result(&conn)
                 .map_err(error::from_diesel)?;

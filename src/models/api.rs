@@ -107,7 +107,12 @@ pub struct PostMatchDetailsFootball {
 
 #[derive(Clone, Debug, PartialEq, Deserialize)]
 pub struct PostMatchDetailsHockey {
-    pub dummy: Option<i32>,
+    pub sog: Option<i32>,
+    pub sm: Option<i32>,
+    pub fw: Option<i32>,
+    pub fl: Option<i32>,
+    pub sv: Option<i32>,
+    pub sa: Option<i32>,
 }
 
 #[derive(Clone, Debug, PartialEq, Deserialize)]
@@ -315,22 +320,42 @@ mod tests {
         let src = json!({
             "sport": "hockey",
             "team_1": {
-                "match_id": 57,
-                "team_id": 24,
-                "dummy": 7,
+                "sog": 4,
+                "sm": 6,
+                "fw": 9,
+                "fl": 7,
+                "sv": 3,
+                "sa": 1,
             },
             "team_2": {
-                "match_id": 57,
-                "team_id": 72,
-                "dummy": 2,
+                "sog": 5,
+                "sm": 8,
+                "fw": 7,
+                "fl": 9,
+                "sv": 2,
+                "sa": 3,
             },
         });
 
         assert_eq!(
             PostMatchDetails::deserialize(src).expect("deserialization failed"),
             PostMatchDetails::Hockey {
-                team_1: PostMatchDetailsHockey { dummy: Some(7) },
-                team_2: PostMatchDetailsHockey { dummy: Some(2) },
+                team_1: PostMatchDetailsHockey {
+                    sog: Some(4),
+                    sm: Some(6),
+                    fw: Some(9),
+                    fl: Some(7),
+                    sv: Some(3),
+                    sa: Some(1)
+                },
+                team_2: PostMatchDetailsHockey {
+                    sog: Some(5),
+                    sm: Some(8),
+                    fw: Some(7),
+                    fl: Some(9),
+                    sv: Some(2),
+                    sa: Some(3)
+                },
             }
         );
     }

@@ -118,7 +118,12 @@ pub struct Football {
 pub struct Hockey {
     pub match_id: i32,
     pub team_id: i32,
-    pub dummy: Option<i32>,
+    pub sog: Option<i32>,
+    pub sm: Option<i32>,
+    pub fw: Option<i32>,
+    pub fl: Option<i32>,
+    pub sv: Option<i32>,
+    pub sa: Option<i32>,
 }
 
 #[derive(Debug, PartialEq, Insertable, Queryable, Deserialize, Serialize, Clone)]

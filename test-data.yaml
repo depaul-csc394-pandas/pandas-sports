@@ -103,9 +103,19 @@ matches:
       details:
         sport: hockey
         team_1:
-          dummy: 6
+          sog: 4
+          sm: 6
+          fw: 9
+          fl: 7
+          sv: 3
+          sa: 4
         team_2:
-          dummy: 4
+          sog: 5
+          sm: 8
+          fw: 7
+          fl: 9
+          sv: 4
+          sa: 5
   - match:
       start_time: '2019-07-09T12:00:00Z'
       duration_seconds: 7

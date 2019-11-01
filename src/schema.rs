@@ -46,7 +46,12 @@ table! {
     hockey (match_id, team_id) {
         match_id -> Int4,
         team_id -> Int4,
-        dummy -> Nullable<Int4>,
+        sog -> Nullable<Int4>,
+        sm -> Nullable<Int4>,
+        fw -> Nullable<Int4>,
+        fl -> Nullable<Int4>,
+        sv -> Nullable<Int4>,
+        sa -> Nullable<Int4>,
     }
 }
 

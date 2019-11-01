@@ -6,6 +6,27 @@ CREATE TABLE hockey (
 
     PRIMARY KEY (match_id, team_id),
 
-    dummy
-        INTEGER
+    -- shots on goal
+    sog
+        INTEGER,
+
+    -- shots missed
+    sm
+        INTEGER,
+
+    -- faceoffs won/lost
+    fw
+        INTEGER,
+    fl
+        INTEGER,
+
+    -- successful saves
+    sv
+        INTEGER,
+
+    -- saves attempted
+    sa
+        INTEGER,
+
+    CONSTRAINT saves_leq_attempted CHECK (sv <= sa)
 );

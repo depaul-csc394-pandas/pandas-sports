@@ -24,3 +24,18 @@
   ```
   $ cargo run --release
   ```
+
+### API Routes
+
+- `/api/matches`
+    - `GET`: returns list of matches
+    - `POST`: creates a new match (see `data-format.md`)
+- `/api/matches/{id}`
+    - `GET`: get a match by id
+    - `DELETE`: delete a match
+- `/api/teams`
+    - `GET`: returns list of teams
+    - `POST`: creates a new team (see `data-format.md`)
+- `/api/teams/{id}`
+    - `GET`: get a team by id
+    - `DELETE`: delete a team (must have no matches)

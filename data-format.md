@@ -6,7 +6,7 @@
 
 ### Matches
 
-```json
+```
 {
     "start_time": datetime
     "duration_seconds": int,
@@ -24,7 +24,7 @@
 Match details objects are polymorphic on their `sport` attribute, tagged internally as follows.
 
 #### Baseball
-```json
+```
 {
     *"sport": "baseball",
     "inning_runs": array of 9 or more int,
@@ -34,7 +34,7 @@ Match details objects are polymorphic on their `sport` attribute, tagged interna
 ```
 
 #### Basketball
-```json
+```
 {
     *"sport": "basketball",
     "q1": int,
@@ -51,7 +51,7 @@ Match details objects are polymorphic on their `sport` attribute, tagged interna
 ```
 
 #### Football
-```json
+```
 {
     *"sport": "football",
     "q1": int,
@@ -68,7 +68,7 @@ Match details objects are polymorphic on their `sport` attribute, tagged interna
 ```
 
 #### Hockey
-```json
+```
 {
     *"sport": "hockey",
     sog: int,
@@ -81,7 +81,7 @@ Match details objects are polymorphic on their `sport` attribute, tagged interna
 ```
 
 #### Soccer
-```json
+```
 {
     *"sport": "soccer",
     "shots": int,
@@ -97,7 +97,7 @@ Match details objects are polymorphic on their `sport` attribute, tagged interna
 ```
 
 #### Volleyball
-```json
+```
 {
     *"sport": "volleyball",
     "set_scores": array of 3 to 5 int,
@@ -113,7 +113,8 @@ Match details objects are polymorphic on their `sport` attribute, tagged interna
 ```
 
 ### Teams
-```json
+```
 {
     "team_name": string,
-}```
+}
+```

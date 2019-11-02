@@ -6,6 +6,7 @@ use actix_web::{middleware, web, App, HttpServer};
 use diesel::pg::PgConnection;
 use diesel::r2d2::{self, ConnectionManager};
 use log::{error, info};
+use serde::Serialize;
 use std::env;
 
 mod error;
@@ -18,6 +19,17 @@ static DOMAIN: &'static str = "DOMAIN";
 static PORT: &'static str = "PORT";
 
 type Pool = r2d2::Pool<ConnectionManager<PgConnection>>;
+
+#[derive(Serialize)]
+struct IndexResponse {
+    version: String,
+}
+
+fn index() -> actix_web::Result<web::Json<IndexResponse>> {
+    Ok(web::Json(IndexResponse {
+        version: env!("CARGO_PKG_VERSION").to_string(),
+    }))
+}
 
 fn main() {
     dotenv::dotenv().ok();
@@ -46,6 +58,7 @@ fn main() {
             .data(pool.clone())
             .wrap(middleware::Logger::default())
             .data(web::JsonConfig::default().limit(4096))
+            .service(web::resource("/api").route(web::get().to(index)))
             .service(
                 web::scope("/api")
                     .service(

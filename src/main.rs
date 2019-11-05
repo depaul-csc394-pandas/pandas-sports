@@ -2,6 +2,7 @@
 #[macro_use]
 extern crate diesel;
 
+use actix_cors::Cors;
 use actix_web::{middleware, web, App, HttpServer};
 use diesel::pg::PgConnection;
 use diesel::r2d2::{self, ConnectionManager};
@@ -57,6 +58,7 @@ fn main() {
         App::new()
             .data(pool.clone())
             .wrap(middleware::Logger::default())
+            .wrap(Cors::new().allowed_origin("*"))
             .data(web::JsonConfig::default().limit(4096))
             .service(web::resource("/api").route(web::get().to(index)))
             .service(

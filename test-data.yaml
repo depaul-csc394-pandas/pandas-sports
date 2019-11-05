@@ -1,850 +1,1081 @@
-teams:
-  - team:
-      team_name: Pandas
-  - team:
-      team_name: Falcons
-  - team:
-      team_name: Armadillos
-  - team:
-      team_name: Pelicans
-matches:
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 42
-      location: Chicago, IL, United States
-      team_1_id: 1
-      team_2_id: 2
-      team_1_score: 5
-      team_2_score: 2
-      details:
-        sport: baseball
-        team_1:
-          inning_runs: [1, 0, 0, 2, 0, 2, 0, 0, 0]
-          hits: 12
-          errors: 1
-        team_2:
-          inning_runs: [0, 1, 0, 0, 1, 0, 0, 0, 0]
-          hits: 7
-          errors: 2
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 52
-      location: Indianapolis, IN, United States
-      team_1_id: 2
-      team_2_id: 3
-      team_1_score: 4
-      team_2_score: 7
-      details:
-        sport: baseball
-        team_1:
-          inning_runs: [0, 0, 0, 1, 1, 2, 0, 0, 0]
-          hits: 8
-          errors: 2
-        team_2:
-          inning_runs: [3, 1, 0, 1, 1, 0, 0, 1, 0]
-          hits: 13
-          errors: 1
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 32
-      location: Peoria, IL, United States
-      team_1_id: 1
-      team_2_id: 4
-      team_1_score: 8
-      team_2_score: 4
-      details:
-        sport: baseball
-        team_1:
-          inning_runs: [1, 1, 0, 2, 0, 2, 0, 1, 1]
-          hits: 10
-          errors: 1
-        team_2:
-          inning_runs: [0, 1, 0, 0, 1, 0, 2, 0, 0]
-          hits: 7
-          errors: 2
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 55
-      location: Dallas, TX, United States
-      team_1_id: 3
-      team_2_id: 4
-      team_1_score: 1
-      team_2_score: 4
-      details:
-        sport: baseball
-        team_1:
-          inning_runs: [1, 0, 0, 0, 0, 0, 0, 0, 0]
-          hits: 6
-          errors: 1
-        team_2:
-          inning_runs: [0, 1, 0, 0, 1, 0, 0, 2, 0]
-          hits: 9
-          errors: 2
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 124
-      location: Miami, FL, United States
-      team_1_id: 1
-      team_2_id: 4
-      team_1_score: 10
-      team_2_score: 5
-      details:
-        sport: baseball
-        team_1:
-          inning_runs: [1, 1, 1, 2, 0, 2, 1, 1, 1]
-          hits: 21
-          errors: 4
-        team_2:
-          inning_runs: [0, 1, 0, 0, 1, 0, 2, 0, 1]
-          hits: 9
-          errors: 2
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 7
-      location: Peoria, IL, United States
-      team_1_id: 3
-      team_2_id: 2
-      team_1_score: 101
-      team_2_score: 97
-      details:
-        sport: basketball
-        team_1:
-          q1: 31
-          q2: 17
-          q3: 21
-          q4: 24
-          fgm: 42
-          fga: 63
-          tpm: 8
-          tpa: 12
-          ftm: 10
-          fta: 11
-        team_2:
-          q1: 26
-          q2: 21
-          q3: 19
-          q4: 23
-          fgm: 38
-          fga: 57
-          tpm: 5
-          tpa: 9
-          ftm: 9
-          fta: 12
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 57
-      location: Doha, Qatar
-      team_1_id: 1
-      team_2_id: 2
-      team_1_score: 123
-      team_2_score: 95
-      details:
-        sport: basketball
-        team_1:
-          q1: 32
-          q2: 30
-          q3: 35
-          q4: 26
-          fgm: 42
-          fga: 63
-          tpm: 8
-          tpa: 12
-          ftm: 10
-          fta: 11
-        team_2:
-          q1: 28
-          q2: 21
-          q3: 15
-          q4: 31
-          fgm: 38
-          fga: 57
-          tpm: 5
-          tpa: 9
-          ftm: 9
-          fta: 12
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 107
-      location: Tampa, FL, United States
-      team_1_id: 2
-      team_2_id: 4
-      team_1_score: 104
-      team_2_score: 115
-      details:
-        sport: basketball
-        team_1:
-          q1: 26
-          q2: 34
-          q3: 26
-          q4: 18
-          fgm: 42
-          fga: 63
-          tpm: 8
-          tpa: 12
-          ftm: 10
-          fta: 11
-        team_2:
-          q1: 33
-          q2: 32
-          q3: 29
-          q4: 21
-          fgm: 38
-          fga: 57
-          tpm: 5
-          tpa: 9
-          ftm: 9
-          fta: 12
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 107
-      location: New York, New York, United States
-      team_1_id: 1
-      team_2_id: 3
-      team_1_score: 109
-      team_2_score: 113
-      details:
-        sport: basketball
-        team_1:
-          q1: 26
-          q2: 28
-          q3: 18
-          q4: 37
-          fgm: 42
-          fga: 63
-          tpm: 8
-          tpa: 12
-          ftm: 10
-          fta: 11
-        team_2:
-          q1: 33
-          q2: 13
-          q3: 32
-          q4: 35
-          fgm: 38
-          fga: 57
-          tpm: 5
-          tpa: 9
-          ftm: 9
-          fta: 12
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 107
-      location: Denver, CO, United States
-      team_1_id: 2
-      team_2_id: 3
-      team_1_score: 131
-      team_2_score: 109
-      details:
-        sport: basketball
-        team_1:
-          q1: 42
-          q2: 28
-          q3: 36
-          q4: 25
-          fgm: 42
-          fga: 63
-          tpm: 8
-          tpa: 12
-          ftm: 10
-          fta: 11
-        team_2:
-          q1: 34
-          q2: 22
-          q3: 16
-          q4: 37
-          fgm: 38
-          fga: 57
-          tpm: 5
-          tpa: 9
-          ftm: 9
-          fta: 12
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 7
-      location: New York, NY, United States
-      team_1_id: 1
-      team_2_id: 4
-      team_1_score: 21
-      team_2_score: 7
-      details:
-        sport: football
-        team_1:
-          q1: 7
-          q2: 3
-          q3: 14
-          q4: 10
-          td: 4
-          fg: 2
-          p_att: 28
-          p_comp: 24
-          yds_pass: 304
-          yds_rush: 215
-        team_2:
-          match_id: 42
-          team_id: 17
-          q1: 0
-          q2: 7
-          q3: 0
-          q4: 0
-          td: 1
-          fg: 0
-          p_att: 21
-          p_comp: 14
-          yds_pass: 118
-          yds_rush: 82
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 155
-      location: Chicago, IL, United States
-      team_1_id: 1
-      team_2_id: 2
-      team_1_score: 26
-      team_2_score: 3
-      details:
-        sport: football
-        team_1:
-          q1: 3
-          q2: 6
-          q3: 10
-          q4: 10
-          td: 4
-          fg: 2
-          p_att: 28
-          p_comp: 24
-          yds_pass: 228
-          yds_rush: 189
-        team_2:
-          match_id: 42
-          team_id: 17
-          q1: 0
-          q2: 7
-          q3: 0
-          q4: 0
-          td: 1
-          fg: 0
-          p_att: 21
-          p_comp: 14
-          yds_pass: 200
-          yds_rush: 155
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 66
-      location: South Bend, IN, United States
-      team_1_id: 4
-      team_2_id: 3
-      team_1_score: 14
-      team_2_score: 22
-      details:
-        sport: football
-        team_1:
-          q1: 0
-          q2: 0
-          q3: 7
-          q4: 7
-          td: 4
-          fg: 2
-          p_att: 28
-          p_comp: 24
-          yds_pass: 304
-          yds_rush: 215
-        team_2:
-          match_id: 42
-          team_id: 17
-          q1: 3
-          q2: 9
-          q3: 7
-          q4: 3
-          td: 1
-          fg: 0
-          p_att: 21
-          p_comp: 14
-          yds_pass: 118
-          yds_rush: 82
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 95
-      location: Seattle, WA, United States
-      team_1_id: 2
-      team_2_id: 3
-      team_1_score: 20
-      team_2_score: 30
-      details:
-        sport: football
-        team_1:
-          q1: 0
-          q2: 0
-          q3: 7
-          q4: 13
-          td: 4
-          fg: 2
-          p_att: 28
-          p_comp: 24
-          yds_pass: 232
-          yds_rush: 146
-        team_2:
-          match_id: 42
-          team_id: 17
-          q1: 0
-          q2: 17
-          q3: 7
-          q4: 6
-          td: 1
-          fg: 0
-          p_att: 21
-          p_comp: 14
-          yds_pass: 154
-          yds_rush: 76
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 128
-      location: Paris, France
-      team_1_id: 1
-      team_2_id: 3
-      team_1_score: 28
-      team_2_score: 25
-      details:
-        sport: football
-        team_1:
-          q1: 7
-          q2: 14
-          q3: 7
-          q4: 0
-          td: 4
-          fg: 2
-          p_att: 28
-          p_comp: 24
-          yds_pass: 232
-          yds_rush: 146
-        team_2:
-          match_id: 42
-          team_id: 17
-          q1: 7
-          q2: 0
-          q3: 7
-          q4: 11
-          td: 1
-          fg: 0
-          p_att: 21
-          p_comp: 14
-          yds_pass: 154
-          yds_rush: 76
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 7
-      location: Chongqing, People's Republic of China
-      team_1_id: 1
-      team_2_id: 2
-      team_1_score: 6
-      team_2_score: 4
-      details:
-        sport: hockey
-        team_1:
-          sog: 4
-          sm: 6
-          fw: 9
-          fl: 7
-          sv: 3
-          sa: 4
-        team_2:
-          sog: 5
-          sm: 8
-          fw: 7
-          fl: 9
-          sv: 4
-          sa: 5
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 202
-      location: Springfield, IL
-      team_1_id: 1
-      team_2_id: 4
-      team_1_score: 4
-      team_2_score: 3
-      details:
-        sport: hockey
-        team_1:
-          sog: 4
-          sm: 5
-          fw: 7
-          fl: 9
-          sv: 1
-          sa: 6
-        team_2:
-          sog: 2
-          sm: 5
-          fw: 6
-          fl: 8
-          sv: 3
-          sa: 3
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 202
-      location: Chicago, IL
-      team_1_id: 1
-      team_2_id: 4
-      team_1_score: 4
-      team_2_score: 3
-      details:
-        sport: hockey
-        team_1:
-          sog: 4
-          sm: 5
-          fw: 7
-          fl: 9
-          sv: 1
-          sa: 6
-        team_2:
-          sog: 2
-          sm: 5
-          fw: 6
-          fl: 8
-          sv: 3
-          sa: 3
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 202
-      location: Miami, FL
-      team_1_id: 2
-      team_2_id: 3
-      team_1_score: 3
-      team_2_score: 7
-      details:
-        sport: hockey
-        team_1:
-          sog: 5
-          sm: 5
-          fw: 7
-          fl: 8
-          sv: 1
-          sa: 7
-        team_2:
-          sog: 3
-          sm: 5
-          fw: 5
-          fl: 8
-          sv: 2
-          sa: 4
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 202
-      location: Toledo, OH
-      team_1_id: 3
-      team_2_id: 4
-      team_1_score: 1
-      team_2_score: 2
-      details:
-        sport: hockey
-        team_1:
-          sog: 7
-          sm: 6
-          fw: 8
-          fl: 7
-          sv: 3
-          sa: 6
-        team_2:
-          sog: 4
-          sm: 6
-          fw: 6
-          fl: 6
-          sv: 1
-          sa: 3
-  - match:
-      start_time: '2019-10-31T22:14:16Z'
-      duration_seconds: 4278
-      location: Las Palmas, Gran Canaria, Spain
-      team_1_id: 3
-      team_2_id: 1
-      team_1_score: 4
-      team_2_score: 1
-      details:
-        sport: soccer
-        team_1:
-          shots: 12
-          sog: 8
-          poss: 0.64
-          passes: 426
-          fouls: 7
-          yellow: 2
-          red: 0
-          offsides: 5
-          corners: 12
-        team_2:
-          shots: 9
-          sog: 3
-          poss: 0.36
-          passes: 297
-          fouls: 11
-          yellow: 4
-          red: 1
-          offsides: 5
-          corners: 8
-  - match:
-      start_time: '2019-10-31T22:14:16Z'
-      duration_seconds: 3000
-      location: Barcelona, Spain
-      team_1_id: 1
-      team_2_id: 2
-      team_1_score: 3
-      team_2_score: 2
-      details:
-        sport: soccer
-        team_1:
-          shots: 10
-          sog: 8
-          poss: 0.75
-          passes: 355
-          fouls: 7
-          yellow: 3
-          red: 0
-          offsides: 3
-          corners: 10
-        team_2:
-          shots: 8
-          sog: 3
-          poss: 0.25
-          passes: 303
-          fouls: 11
-          yellow: 4
-          red: 1
-          offsides: 5
-          corners: 8
-  - match:
-      start_time: '2019-10-31T22:14:16Z'
-      duration_seconds: 2894
-      location: London, England
-      team_1_id: 2
-      team_2_id: 4
-      team_1_score: 1
-      team_2_score: 0
-      details:
-        sport: soccer
-        team_1:
-          shots: 10
-          sog: 8
-          poss: 0.60
-          passes: 265
-          fouls: 7
-          yellow: 2
-          red: 0
-          offsides: 3
-          corners: 13
-        team_2:
-          shots: 8
-          sog: 3
-          poss: 0.40
-          passes: 203
-          fouls: 11
-          yellow: 4
-          red: 1
-          offsides: 6
-          corners: 7
-  - match:
-      start_time: '2019-10-31T22:14:16Z'
-      duration_seconds: 2697
-      location: Cape Town, South Africa
-      team_1_id: 3
-      team_2_id: 1
-      team_1_score: 3
-      team_2_score: 4
-      details:
-        sport: soccer
-        team_1:
-          shots: 15
-          sog: 9
-          poss: 0.80
-          passes: 297
-          fouls: 5
-          yellow: 3
-          red: 0
-          offsides: 2
-          corners: 10
-        team_2:
-          shots: 6
-          sog: 1
-          poss: 0.20
-          passes: 255
-          fouls: 11
-          yellow: 4
-          red: 1
-          offsides: 6
-          corners: 7
-  - match:
-      start_time: '2019-10-31T22:14:16Z'
-      duration_seconds: 3567
-      location: Sydney, Australia
-      team_1_id: 1
-      team_2_id: 4
-      team_1_score: 2
-      team_2_score: 5
-      details:
-        sport: soccer
-        team_1:
-          shots: 13
-          sog: 9
-          poss: 0.85
-          passes: 365
-          fouls: 4
-          yellow: 3
-          red: 0
-          offsides: 3
-          corners: 10
-        team_2:
-          shots: 6
-          sog: 1
-          poss: 0.15
-          passes: 124
-          fouls: 6
-          yellow: 4
-          red: 1
-          offsides: 5
-          corners: 7
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 7
-      location: Sao Paulo, Brazil
-      team_1_id: 3
-      team_2_id: 2
-      team_1_score: 3
-      team_2_score: 1
-      details:
-        sport: volleyball
-        team_1:
-          set_scores: [25, 21, 25, 25]
-          sv_ace: 7
-          sv_err: 2
-          sv_att: 12
-          at_kill: 40
-          at_err: 12
-          at_att: 60
-          rc_err: 9
-          rc_att: 49
-        team_2:
-          set_scores: [22, 25, 19, 21]
-          sv_ace: 5
-          sv_err: 4
-          sv_att: 11
-          at_kill: 31
-          at_err: 15
-          at_att: 51
-          rc_err: 13
-          rc_att: 42
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 202
-      location: Miami, FL
-      team_1_id: 1
-      team_2_id: 2
-      team_1_score: 4
-      team_2_score: 2
-      details:
-        sport: volleyball
-        team_1:
-          set_scores: [18, 15, 25, 26]
-          sv_ace: 5
-          sv_err: 6
-          sv_att: 18
-          at_kill: 35
-          at_err: 15
-          at_att: 55
-          rc_err: 10
-          rc_att: 54
-        team_2:
-          set_scores: [23, 20, 15, 18]
-          sv_ace: 4
-          sv_err: 6
-          sv_att: 17
-          at_kill: 36
-          at_err: 10
-          at_att: 51
-          rc_err: 13
-          rc_att: 42
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 202
-      location: Chicago, IL
-      team_1_id: 2
-      team_2_id: 3
-      team_1_score: 1
-      team_2_score: 4
-      details:
-        sport: volleyball
-        team_1:
-          set_scores: [17, 21, 18, 18]
-          sv_ace: 3
-          sv_err: 9
-          sv_att: 13
-          at_kill: 30
-          at_err: 15
-          at_att: 50
-          rc_err: 15
-          rc_att: 59
-        team_2:
-          set_scores: [19, 16, 17, 16]
-          sv_ace: 3
-          sv_err: 7
-          sv_att: 16
-          at_kill: 38
-          at_err: 19
-          at_att: 45
-          rc_err: 13
-          rc_att: 49
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 245
-      location: Sunnyvale, CA
-      team_1_id: 1
-      team_2_id: 4
-      team_1_score: 1
-      team_2_score: 2
-      details:
-        sport: volleyball
-        team_1:
-          set_scores: [20, 15, 11, 16]
-          sv_ace: 3
-          sv_err: 9
-          sv_att: 13
-          at_kill: 25
-          at_err: 19
-          at_att: 45
-          rc_err: 18
-          rc_att: 55
-        team_2:
-          set_scores: [16, 17, 21, 25]
-          sv_ace: 3
-          sv_err: 7
-          sv_att: 16
-          at_kill: 38
-          at_err: 20
-          at_att: 47
-          rc_err: 16
-          rc_att: 47
-  - match:
-      start_time: '2019-07-09T12:00:00Z'
-      duration_seconds: 245
-      location: Key West, FL
-      team_1_id: 3
-      team_2_id: 4
-      team_1_score: 3
-      team_2_score: 4
-      details:
-        sport: volleyball
-        team_1:
-          set_scores: [22, 17, 25, 28]
-          sv_ace: 4
-          sv_err: 6
-          sv_att: 16
-          at_kill: 18
-          at_err: 14
-          at_att: 37
-          rc_err: 19
-          rc_att: 55
-        team_2:
-          set_scores: [20, 21, 29, 15]
-          sv_ace: 4
-          sv_err: 6
-          sv_att: 15
-          at_kill: 35
-          at_err: 20
-          at_att: 47
-          rc_err: 16
-          rc_att: 47
+requests:
+  # CREATE TEAMS ##############################################################
+  - route: '/teams'
+    method: 'post'
+    body:
+      team:
+        team_name: Pandas
+    response:
+      status: 201
+  - route: '/teams'
+    method: 'post'
+    body:
+      team:
+        team_name: Falcons
+    response:
+      status: 201
+  - route: '/teams'
+    method: 'post'
+    body:
+      team:
+        team_name: Armadillos
+    response:
+      status: 201
+  - route: '/teams'
+    method: 'post'
+    body:
+      team:
+        team_name: Pelicans
+    response:
+      status: 201
+  - route: '/teams'
+    method: 'post'
+    body:
+      team:
+        team_name: TeamToDelete
+    response:
+      status: 201
+  # GET TEAMS #################################################################
+  - route: '/teams'
+    method: 'get'
+    response:
+      status: 200
+  - route: '/teams/1'
+    method: 'get'
+    response:
+      status: 200
+  - route: '/teams/2'
+    method: 'get'
+    response:
+      status: 200
+  - route: '/teams/3'
+    method: 'get'
+    response:
+      status: 200
+  - route: '/teams/4'
+    method: 'get'
+    response:
+      status: 200
+  - route: '/teams/5'
+    method: 'get'
+    response:
+      status: 200
+  # DELETE TEAM ###############################################################
+  - route: '/teams/5'
+    method: 'delete'
+    response:
+      status: 204
+  # GET DELETED TEAM ##########################################################
+  - route: '/teams/5'
+    method: 'get'
+    response:
+      status: 404
+  # CREATE MATCHES ############################################################
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 42
+        location: Chicago, IL, United States
+        team_1_id: 1
+        team_2_id: 2
+        team_1_score: 5
+        team_2_score: 2
+        details:
+          sport: baseball
+          team_1:
+            inning_runs: [1, 0, 0, 2, 0, 2, 0, 0, 0]
+            hits: 12
+            errors: 1
+          team_2:
+            inning_runs: [0, 1, 0, 0, 1, 0, 0, 0, 0]
+            hits: 7
+            errors: 2
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 52
+        location: Indianapolis, IN, United States
+        team_1_id: 2
+        team_2_id: 3
+        team_1_score: 4
+        team_2_score: 7
+        details:
+          sport: baseball
+          team_1:
+            inning_runs: [0, 0, 0, 1, 1, 2, 0, 0, 0]
+            hits: 8
+            errors: 2
+          team_2:
+            inning_runs: [3, 1, 0, 1, 1, 0, 0, 1, 0]
+            hits: 13
+            errors: 1
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 32
+        location: Peoria, IL, United States
+        team_1_id: 1
+        team_2_id: 4
+        team_1_score: 8
+        team_2_score: 4
+        details:
+          sport: baseball
+          team_1:
+            inning_runs: [1, 1, 0, 2, 0, 2, 0, 1, 1]
+            hits: 10
+            errors: 1
+          team_2:
+            inning_runs: [0, 1, 0, 0, 1, 0, 2, 0, 0]
+            hits: 7
+            errors: 2
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 55
+        location: Dallas, TX, United States
+        team_1_id: 3
+        team_2_id: 4
+        team_1_score: 1
+        team_2_score: 4
+        details:
+          sport: baseball
+          team_1:
+            inning_runs: [1, 0, 0, 0, 0, 0, 0, 0, 0]
+            hits: 6
+            errors: 1
+          team_2:
+            inning_runs: [0, 1, 0, 0, 1, 0, 0, 2, 0]
+            hits: 9
+            errors: 2
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 124
+        location: Miami, FL, United States
+        team_1_id: 1
+        team_2_id: 4
+        team_1_score: 10
+        team_2_score: 5
+        details:
+          sport: baseball
+          team_1:
+            inning_runs: [1, 1, 1, 2, 0, 2, 1, 1, 1]
+            hits: 21
+            errors: 4
+          team_2:
+            inning_runs: [0, 1, 0, 0, 1, 0, 2, 0, 1]
+            hits: 9
+            errors: 2
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 7
+        location: Peoria, IL, United States
+        team_1_id: 3
+        team_2_id: 2
+        team_1_score: 101
+        team_2_score: 97
+        details:
+          sport: basketball
+          team_1:
+            q1: 31
+            q2: 17
+            q3: 21
+            q4: 24
+            fgm: 42
+            fga: 63
+            tpm: 8
+            tpa: 12
+            ftm: 10
+            fta: 11
+          team_2:
+            q1: 26
+            q2: 21
+            q3: 19
+            q4: 23
+            fgm: 38
+            fga: 57
+            tpm: 5
+            tpa: 9
+            ftm: 9
+            fta: 12
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 57
+        location: Doha, Qatar
+        team_1_id: 1
+        team_2_id: 2
+        team_1_score: 123
+        team_2_score: 95
+        details:
+          sport: basketball
+          team_1:
+            q1: 32
+            q2: 30
+            q3: 35
+            q4: 26
+            fgm: 42
+            fga: 63
+            tpm: 8
+            tpa: 12
+            ftm: 10
+            fta: 11
+          team_2:
+            q1: 28
+            q2: 21
+            q3: 15
+            q4: 31
+            fgm: 38
+            fga: 57
+            tpm: 5
+            tpa: 9
+            ftm: 9
+            fta: 12
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 107
+        location: Tampa, FL, United States
+        team_1_id: 2
+        team_2_id: 4
+        team_1_score: 104
+        team_2_score: 115
+        details:
+          sport: basketball
+          team_1:
+            q1: 26
+            q2: 34
+            q3: 26
+            q4: 18
+            fgm: 42
+            fga: 63
+            tpm: 8
+            tpa: 12
+            ftm: 10
+            fta: 11
+          team_2:
+            q1: 33
+            q2: 32
+            q3: 29
+            q4: 21
+            fgm: 38
+            fga: 57
+            tpm: 5
+            tpa: 9
+            ftm: 9
+            fta: 12
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 107
+        location: New York, New York, United States
+        team_1_id: 1
+        team_2_id: 3
+        team_1_score: 109
+        team_2_score: 113
+        details:
+          sport: basketball
+          team_1:
+            q1: 26
+            q2: 28
+            q3: 18
+            q4: 37
+            fgm: 42
+            fga: 63
+            tpm: 8
+            tpa: 12
+            ftm: 10
+            fta: 11
+          team_2:
+            q1: 33
+            q2: 13
+            q3: 32
+            q4: 35
+            fgm: 38
+            fga: 57
+            tpm: 5
+            tpa: 9
+            ftm: 9
+            fta: 12
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 107
+        location: Denver, CO, United States
+        team_1_id: 2
+        team_2_id: 3
+        team_1_score: 131
+        team_2_score: 109
+        details:
+          sport: basketball
+          team_1:
+            q1: 42
+            q2: 28
+            q3: 36
+            q4: 25
+            fgm: 42
+            fga: 63
+            tpm: 8
+            tpa: 12
+            ftm: 10
+            fta: 11
+          team_2:
+            q1: 34
+            q2: 22
+            q3: 16
+            q4: 37
+            fgm: 38
+            fga: 57
+            tpm: 5
+            tpa: 9
+            ftm: 9
+            fta: 12
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 7
+        location: New York, NY, United States
+        team_1_id: 1
+        team_2_id: 4
+        team_1_score: 21
+        team_2_score: 7
+        details:
+          sport: football
+          team_1:
+            q1: 7
+            q2: 3
+            q3: 14
+            q4: 10
+            td: 4
+            fg: 2
+            p_att: 28
+            p_comp: 24
+            yds_pass: 304
+            yds_rush: 215
+          team_2:
+            q1: 0
+            q2: 7
+            q3: 0
+            q4: 0
+            td: 1
+            fg: 0
+            p_att: 21
+            p_comp: 14
+            yds_pass: 118
+            yds_rush: 82
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 155
+        location: Chicago, IL, United States
+        team_1_id: 1
+        team_2_id: 2
+        team_1_score: 26
+        team_2_score: 3
+        details:
+          sport: football
+          team_1:
+            q1: 3
+            q2: 6
+            q3: 10
+            q4: 10
+            td: 4
+            fg: 2
+            p_att: 28
+            p_comp: 24
+            yds_pass: 228
+            yds_rush: 189
+          team_2:
+            q1: 0
+            q2: 7
+            q3: 0
+            q4: 0
+            td: 1
+            fg: 0
+            p_att: 21
+            p_comp: 14
+            yds_pass: 200
+            yds_rush: 155
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 66
+        location: South Bend, IN, United States
+        team_1_id: 4
+        team_2_id: 3
+        team_1_score: 14
+        team_2_score: 22
+        details:
+          sport: football
+          team_1:
+            q1: 0
+            q2: 0
+            q3: 7
+            q4: 7
+            td: 4
+            fg: 2
+            p_att: 28
+            p_comp: 24
+            yds_pass: 304
+            yds_rush: 215
+          team_2:
+            q1: 3
+            q2: 9
+            q3: 7
+            q4: 3
+            td: 1
+            fg: 0
+            p_att: 21
+            p_comp: 14
+            yds_pass: 118
+            yds_rush: 82
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 95
+        location: Seattle, WA, United States
+        team_1_id: 2
+        team_2_id: 3
+        team_1_score: 20
+        team_2_score: 30
+        details:
+          sport: football
+          team_1:
+            q1: 0
+            q2: 0
+            q3: 7
+            q4: 13
+            td: 4
+            fg: 2
+            p_att: 28
+            p_comp: 24
+            yds_pass: 232
+            yds_rush: 146
+          team_2:
+            q1: 0
+            q2: 17
+            q3: 7
+            q4: 6
+            td: 1
+            fg: 0
+            p_att: 21
+            p_comp: 14
+            yds_pass: 154
+            yds_rush: 76
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 128
+        location: Paris, France
+        team_1_id: 1
+        team_2_id: 3
+        team_1_score: 28
+        team_2_score: 25
+        details:
+          sport: football
+          team_1:
+            q1: 7
+            q2: 14
+            q3: 7
+            q4: 0
+            td: 4
+            fg: 2
+            p_att: 28
+            p_comp: 24
+            yds_pass: 232
+            yds_rush: 146
+          team_2:
+            q1: 7
+            q2: 0
+            q3: 7
+            q4: 11
+            td: 1
+            fg: 0
+            p_att: 21
+            p_comp: 14
+            yds_pass: 154
+            yds_rush: 76
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 7
+        location: Chongqing, People's Republic of China
+        team_1_id: 1
+        team_2_id: 2
+        team_1_score: 6
+        team_2_score: 4
+        details:
+          sport: hockey
+          team_1:
+            sog: 4
+            sm: 6
+            fw: 9
+            fl: 7
+            sv: 3
+            sa: 4
+          team_2:
+            sog: 5
+            sm: 8
+            fw: 7
+            fl: 9
+            sv: 4
+            sa: 5
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 202
+        location: Springfield, IL
+        team_1_id: 1
+        team_2_id: 4
+        team_1_score: 4
+        team_2_score: 3
+        details:
+          sport: hockey
+          team_1:
+            sog: 4
+            sm: 5
+            fw: 7
+            fl: 9
+            sv: 1
+            sa: 6
+          team_2:
+            sog: 2
+            sm: 5
+            fw: 6
+            fl: 8
+            sv: 3
+            sa: 3
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 202
+        location: Chicago, IL
+        team_1_id: 1
+        team_2_id: 4
+        team_1_score: 4
+        team_2_score: 3
+        details:
+          sport: hockey
+          team_1:
+            sog: 4
+            sm: 5
+            fw: 7
+            fl: 9
+            sv: 1
+            sa: 6
+          team_2:
+            sog: 2
+            sm: 5
+            fw: 6
+            fl: 8
+            sv: 3
+            sa: 3
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 202
+        location: Miami, FL
+        team_1_id: 2
+        team_2_id: 3
+        team_1_score: 3
+        team_2_score: 7
+        details:
+          sport: hockey
+          team_1:
+            sog: 5
+            sm: 5
+            fw: 7
+            fl: 8
+            sv: 1
+            sa: 7
+          team_2:
+            sog: 3
+            sm: 5
+            fw: 5
+            fl: 8
+            sv: 2
+            sa: 4
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 202
+        location: Toledo, OH
+        team_1_id: 3
+        team_2_id: 4
+        team_1_score: 1
+        team_2_score: 2
+        details:
+          sport: hockey
+          team_1:
+            sog: 7
+            sm: 6
+            fw: 8
+            fl: 7
+            sv: 3
+            sa: 6
+          team_2:
+            sog: 4
+            sm: 6
+            fw: 6
+            fl: 6
+            sv: 1
+            sa: 3
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-10-31T22:14:16Z'
+        duration_seconds: 4278
+        location: Las Palmas, Gran Canaria, Spain
+        team_1_id: 3
+        team_2_id: 1
+        team_1_score: 4
+        team_2_score: 1
+        details:
+          sport: soccer
+          team_1:
+            shots: 12
+            sog: 8
+            poss: 0.64
+            passes: 426
+            fouls: 7
+            yellow: 2
+            red: 0
+            offsides: 5
+            corners: 12
+          team_2:
+            shots: 9
+            sog: 3
+            poss: 0.36
+            passes: 297
+            fouls: 11
+            yellow: 4
+            red: 1
+            offsides: 5
+            corners: 8
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-10-31T22:14:16Z'
+        duration_seconds: 3000
+        location: Barcelona, Spain
+        team_1_id: 1
+        team_2_id: 2
+        team_1_score: 3
+        team_2_score: 2
+        details:
+          sport: soccer
+          team_1:
+            shots: 10
+            sog: 8
+            poss: 0.75
+            passes: 355
+            fouls: 7
+            yellow: 3
+            red: 0
+            offsides: 3
+            corners: 10
+          team_2:
+            shots: 8
+            sog: 3
+            poss: 0.25
+            passes: 303
+            fouls: 11
+            yellow: 4
+            red: 1
+            offsides: 5
+            corners: 8
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-10-31T22:14:16Z'
+        duration_seconds: 2894
+        location: London, England
+        team_1_id: 2
+        team_2_id: 4
+        team_1_score: 1
+        team_2_score: 0
+        details:
+          sport: soccer
+          team_1:
+            shots: 10
+            sog: 8
+            poss: 0.60
+            passes: 265
+            fouls: 7
+            yellow: 2
+            red: 0
+            offsides: 3
+            corners: 13
+          team_2:
+            shots: 8
+            sog: 3
+            poss: 0.40
+            passes: 203
+            fouls: 11
+            yellow: 4
+            red: 1
+            offsides: 6
+            corners: 7
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-10-31T22:14:16Z'
+        duration_seconds: 2697
+        location: Cape Town, South Africa
+        team_1_id: 3
+        team_2_id: 1
+        team_1_score: 3
+        team_2_score: 4
+        details:
+          sport: soccer
+          team_1:
+            shots: 15
+            sog: 9
+            poss: 0.80
+            passes: 297
+            fouls: 5
+            yellow: 3
+            red: 0
+            offsides: 2
+            corners: 10
+          team_2:
+            shots: 6
+            sog: 1
+            poss: 0.20
+            passes: 255
+            fouls: 11
+            yellow: 4
+            red: 1
+            offsides: 6
+            corners: 7
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-10-31T22:14:16Z'
+        duration_seconds: 3567
+        location: Sydney, Australia
+        team_1_id: 1
+        team_2_id: 4
+        team_1_score: 2
+        team_2_score: 5
+        details:
+          sport: soccer
+          team_1:
+            shots: 13
+            sog: 9
+            poss: 0.85
+            passes: 365
+            fouls: 4
+            yellow: 3
+            red: 0
+            offsides: 3
+            corners: 10
+          team_2:
+            shots: 6
+            sog: 1
+            poss: 0.15
+            passes: 124
+            fouls: 6
+            yellow: 4
+            red: 1
+            offsides: 5
+            corners: 7
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 7
+        location: Sao Paulo, Brazil
+        team_1_id: 3
+        team_2_id: 2
+        team_1_score: 3
+        team_2_score: 1
+        details:
+          sport: volleyball
+          team_1:
+            set_scores: [25, 21, 25, 25]
+            sv_ace: 7
+            sv_err: 2
+            sv_att: 12
+            at_kill: 40
+            at_err: 12
+            at_att: 60
+            rc_err: 9
+            rc_att: 49
+          team_2:
+            set_scores: [22, 25, 19, 21]
+            sv_ace: 5
+            sv_err: 4
+            sv_att: 11
+            at_kill: 31
+            at_err: 15
+            at_att: 51
+            rc_err: 13
+            rc_att: 42
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 202
+        location: Miami, FL
+        team_1_id: 1
+        team_2_id: 2
+        team_1_score: 4
+        team_2_score: 2
+        details:
+          sport: volleyball
+          team_1:
+            set_scores: [18, 15, 25, 26]
+            sv_ace: 5
+            sv_err: 6
+            sv_att: 18
+            at_kill: 35
+            at_err: 15
+            at_att: 55
+            rc_err: 10
+            rc_att: 54
+          team_2:
+            set_scores: [23, 20, 15, 18]
+            sv_ace: 4
+            sv_err: 6
+            sv_att: 17
+            at_kill: 36
+            at_err: 10
+            at_att: 51
+            rc_err: 13
+            rc_att: 42
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 202
+        location: Chicago, IL
+        team_1_id: 2
+        team_2_id: 3
+        team_1_score: 1
+        team_2_score: 4
+        details:
+          sport: volleyball
+          team_1:
+            set_scores: [17, 21, 18, 18]
+            sv_ace: 3
+            sv_err: 9
+            sv_att: 13
+            at_kill: 30
+            at_err: 15
+            at_att: 50
+            rc_err: 15
+            rc_att: 59
+          team_2:
+            set_scores: [19, 16, 17, 16]
+            sv_ace: 3
+            sv_err: 7
+            sv_att: 16
+            at_kill: 38
+            at_err: 19
+            at_att: 45
+            rc_err: 13
+            rc_att: 49
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 245
+        location: Sunnyvale, CA
+        team_1_id: 1
+        team_2_id: 4
+        team_1_score: 1
+        team_2_score: 2
+        details:
+          sport: volleyball
+          team_1:
+            set_scores: [20, 15, 11, 16]
+            sv_ace: 3
+            sv_err: 9
+            sv_att: 13
+            at_kill: 25
+            at_err: 19
+            at_att: 45
+            rc_err: 18
+            rc_att: 55
+          team_2:
+            set_scores: [16, 17, 21, 25]
+            sv_ace: 3
+            sv_err: 7
+            sv_att: 16
+            at_kill: 38
+            at_err: 20
+            at_att: 47
+            rc_err: 16
+            rc_att: 47
+    response:
+      status: 201
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        start_time: '2019-07-09T12:00:00Z'
+        duration_seconds: 245
+        location: Key West, FL
+        team_1_id: 3
+        team_2_id: 4
+        team_1_score: 3
+        team_2_score: 4
+        details:
+          sport: volleyball
+          team_1:
+            set_scores: [22, 17, 25, 28]
+            sv_ace: 4
+            sv_err: 6
+            sv_att: 16
+            at_kill: 18
+            at_err: 14
+            at_att: 37
+            rc_err: 19
+            rc_att: 55
+          team_2:
+            set_scores: [20, 21, 29, 15]
+            sv_ace: 4
+            sv_err: 6
+            sv_att: 15
+            at_kill: 35
+            at_err: 20
+            at_att: 47
+            rc_err: 16
+            rc_att: 47
+    response:
+      status: 201
+  # GET MATCHES ############################################################
+  - route: '/matches'
+    method: 'get'
+    response:
+      status: 200
+  - route: '/matches/1'
+    method: 'get'
+    response:
+      status: 200
+  - route: '/matches/5'
+    method: 'get'
+    response:
+      status: 200
+  # DELETE MATCHES #########################################################
+  - route: '/matches/5'
+    method: 'delete'
+    response:
+      status: 204
+  # GET DELETED MATCHES ####################################################
+  - route: '/matches/5'
+    method: 'get'
+    response:
+      status: 404
+  # DELETE TEAM WITH EXISTING MATCHES
+  - route: '/teams/3'
+    method: 'delete'
+    response:
+      status: 409

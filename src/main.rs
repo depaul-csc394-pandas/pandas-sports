@@ -58,7 +58,7 @@ fn main() {
         App::new()
             .data(pool.clone())
             .wrap(middleware::Logger::default())
-            .wrap(Cors::new().allowed_origin("*"))
+            .wrap(Cors::new().allowed_methods(vec!["GET", "POST", "DELETE"]))
             .data(web::JsonConfig::default().limit(4096))
             .service(web::resource("/api").route(web::get().to(index)))
             .service(

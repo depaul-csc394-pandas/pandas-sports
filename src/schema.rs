@@ -58,6 +58,7 @@ table! {
 table! {
     matches (id) {
         id -> Int4,
+        owner_id -> Int4,
         start_time -> Nullable<Timestamptz>,
         duration_seconds -> Nullable<Int4>,
         location -> Nullable<Varchar>,
@@ -108,7 +109,18 @@ table! {
 table! {
     teams (id) {
         id -> Int4,
+        owner_id -> Int4,
         team_name -> Varchar,
+    }
+}
+
+table! {
+    users (id) {
+        id -> Int4,
+        privileged -> Bool,
+        username -> Varchar,
+        salt_base64 -> Varchar,
+        argon2_hash -> Varchar,
     }
 }
 
@@ -136,10 +148,12 @@ joinable!(football -> matches (match_id));
 joinable!(football -> teams (team_id));
 joinable!(hockey -> matches (match_id));
 joinable!(hockey -> teams (team_id));
+joinable!(matches -> users (owner_id));
 joinable!(rosters -> players (player_id));
 joinable!(rosters -> teams (team_id));
 joinable!(soccer -> matches (match_id));
 joinable!(soccer -> teams (team_id));
+joinable!(teams -> users (owner_id));
 joinable!(volleyball -> matches (match_id));
 joinable!(volleyball -> teams (team_id));
 
@@ -153,5 +167,6 @@ allow_tables_to_appear_in_same_query!(
     rosters,
     soccer,
     teams,
+    users,
     volleyball,
 );

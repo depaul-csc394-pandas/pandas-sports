@@ -1,11 +1,11 @@
 use crate::{
     error::{self, ServiceError},
     models::{api, sql},
-    Pool,
+    user, Pool,
 };
+use actix_identity::Identity;
 use actix_web::{web, HttpRequest, HttpResponse, Responder};
 use diesel::prelude::*;
-use futures::Future;
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize)]
@@ -33,10 +33,26 @@ impl Responder for Response {
     }
 }
 
-fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<api::GetMatch, ServiceError> {
+fn query(
+    params: web::Json<Params>,
+    pool: web::Data<Pool>,
+    user_id: i32,
+) -> Result<api::GetMatch, ServiceError> {
+    if !user::user_owns_team(pool.clone(), user_id, params.match_.match_common.team_1_id)?
+        || !user::user_owns_team(pool.clone(), user_id, params.match_.match_common.team_2_id)?
+    {
+        return Err(error::forbidden(failure::err_msg(
+            "You must own both teams to create a match.",
+        )));
+    }
+
+    // assign ownership of new match
+    let new_match = sql::NewMatch::with_owner(params.match_.clone(), user_id);
+
+    // retrieve a database connection from the pool
     let conn = pool.get().map_err(error::unavailable)?;
 
-    let mut new_match = sql::NewMatch::from(params.match_.clone());
+    // insert the new match
     let match_: sql::Match = {
         use crate::schema::matches::dsl::*;
 
@@ -46,6 +62,7 @@ fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<api::GetMat
             .map_err(error::from_diesel)?
     };
 
+    // insert match details
     let details = match params.match_.details {
         api::PostMatchDetails::Baseball {
             ref team_1,
@@ -290,6 +307,7 @@ fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<api::GetMat
 
     Ok(api::GetMatch {
         id: match_.id,
+        owner_id: match_.owner_id,
         match_common: api::MatchCommon::from(match_),
         details,
     })
@@ -298,9 +316,12 @@ fn query(params: web::Json<Params>, pool: web::Data<Pool>) -> Result<api::GetMat
 pub fn create_match(
     params: web::Json<Params>,
     pool: web::Data<Pool>,
-) -> impl Future<Item = Response, Error = ServiceError> {
-    web::block(move || query(params, pool)).then(move |res| match res {
+    identity: Identity,
+) -> Result<Response, ServiceError> {
+    let user_id = crate::user::id_for_identity(pool.clone(), identity.clone())?;
+
+    match query(params, pool, user_id) {
         Ok(m) => Ok(Response { match_: m.into() }),
-        Err(e) => Err(error::from_blocking(e)),
-    })
+        Err(e) => Err(e),
+    }
 }

@@ -48,6 +48,7 @@ fn query(path: web::Path<PathParams>, pool: web::Data<Pool>) -> Result<Response,
     Ok(Response {
         match_: api::GetMatch {
             id: match_.id,
+            owner_id: match_.owner_id,
             match_common: api::MatchCommon::from(match_),
             details,
         },
@@ -75,6 +76,7 @@ mod tests {
         let src = Response {
             match_: api::GetMatch {
                 id: 1,
+                owner_id: 42,
                 match_common: api::MatchCommon {
                     start_time: Some(Utc.ymd(2019, 07, 09).and_hms(12, 34, 56)),
                     duration_seconds: Some(99),
@@ -122,6 +124,7 @@ mod tests {
             json!({
                 "match": {
                     "id": 1,
+                    "owner_id": 42,
                     "start_time": "2019-07-09T12:34:56Z",
                     "duration_seconds": 99,
                     "location": "DePaul University",

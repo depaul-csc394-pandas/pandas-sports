@@ -145,6 +145,7 @@ fn list_query(
         .into_iter()
         .map(|ref m| api::GetMatch {
             id: m.id,
+            owner_id: m.owner_id,
             match_common: api::MatchCommon::from(m),
             details: get_match_details(pool.clone(), m).unwrap(),
         })

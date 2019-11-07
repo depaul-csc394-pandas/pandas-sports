@@ -1,17 +1,17 @@
 use crate::{
     error::{self, ServiceError},
-    models::sql,
+    models::{api, sql},
     Pool,
 };
+use actix_identity::Identity;
 use actix_web::{web, HttpRequest, HttpResponse, Responder};
 use diesel::prelude::*;
-use futures::Future;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct Body {
-    team: sql::NewTeam,
+    team: api::PostTeam,
 }
 
 #[derive(Debug, PartialEq, Serialize)]
@@ -33,15 +33,20 @@ impl Responder for Response {
     }
 }
 
-fn query(body: web::Json<Body>, pool: web::Data<Pool>) -> Result<Response, ServiceError> {
+fn query(
+    body: web::Json<Body>,
+    pool: web::Data<Pool>,
+    user_id: i32,
+) -> Result<Response, ServiceError> {
     use crate::schema::teams::dsl::*;
     use diesel::result::{DatabaseErrorKind, Error as DieselError};
 
     let conn = pool.get().map_err(error::unavailable)?;
     let response = match body.into_inner() {
         Body { team: r_team } => {
+            let new_team = sql::NewTeam::with_owner(r_team, user_id);
             let team = diesel::insert_into(teams)
-                .values(&r_team)
+                .values(new_team)
                 .get_result(&conn)
                 .map_err(|e| match e {
                     DieselError::DatabaseError(DatabaseErrorKind::UniqueViolation, _) => {
@@ -60,11 +65,14 @@ fn query(body: web::Json<Body>, pool: web::Data<Pool>) -> Result<Response, Servi
 pub fn create_team(
     body: web::Json<Body>,
     pool: web::Data<Pool>,
-) -> impl Future<Item = Response, Error = ServiceError> {
-    web::block(move || query(body, pool)).then(move |res| match res {
+    identity: Identity,
+) -> Result<Response, ServiceError> {
+    let user_id = crate::user::id_for_identity(pool.clone(), identity.clone())?;
+
+    match query(body, pool, user_id) {
         Ok(r) => Ok(r),
-        Err(e) => Err(error::from_blocking(e)),
-    })
+        Err(e) => Err(e),
+    }
 }
 
 #[cfg(test)]
@@ -83,7 +91,7 @@ mod tests {
         assert_eq!(
             Body::deserialize(src).expect("deserialization failed"),
             Body {
-                team: sql::NewTeam {
+                team: api::PostTeam {
                     team_name: "Pandas".to_string(),
                 }
             }

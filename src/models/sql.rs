@@ -1,5 +1,7 @@
 use crate::{
+    hash::SaltedHash,
     models::{api, Sport},
+    schema::users,
     schema::*,
 };
 use chrono::{DateTime, NaiveDate, Utc};
@@ -56,9 +58,46 @@ where
     }
 }
 
+#[derive(Insertable)]
+#[table_name = "users"]
+pub struct NewUser {
+    pub privileged: bool,
+    pub username: String,
+    pub salt_base64: String,
+    pub argon2_hash: String,
+}
+
+#[derive(Queryable)]
+pub struct User {
+    pub id: i32,
+    pub privileged: bool,
+    pub username: String,
+    pub salt_base64: String,
+    pub argon2_hash: String,
+}
+
+impl User {
+    pub fn verify<S>(&self, password: S) -> bool
+    where
+        S: AsRef<str>,
+    {
+        let mut salt = [0u8; 32];
+        (&mut salt[..])
+            .write_all(&base64::decode(&self.salt_base64).expect("base64 decode"))
+            .expect("write_all");
+
+        SaltedHash {
+            salt,
+            hash: self.argon2_hash.clone().into_bytes(),
+        }
+        .verify(password.as_ref())
+    }
+}
+
 #[derive(Queryable, Serialize)]
 pub struct Match {
     pub id: i32,
+    pub owner_id: i32,
     pub start_time: Option<DateTime<Utc>>,
     pub duration_seconds: Option<i32>,
     pub location: Option<String>,
@@ -161,6 +200,7 @@ pub struct Volleyball {
 #[derive(Deserialize, Insertable)]
 #[table_name = "matches"]
 pub struct NewMatch {
+    pub owner_id: i32,
     pub start_time: Option<DateTime<Utc>>,
     pub duration_seconds: Option<i32>,
     pub location: Option<String>,
@@ -171,8 +211,8 @@ pub struct NewMatch {
     pub team_2_score: i32,
 }
 
-impl From<api::PostMatch> for NewMatch {
-    fn from(from: api::PostMatch) -> Self {
+impl NewMatch {
+    pub fn with_owner(from: api::PostMatch, owner_id: i32) -> Self {
         let api::MatchCommon {
             start_time,
             duration_seconds,
@@ -193,6 +233,7 @@ impl From<api::PostMatch> for NewMatch {
         };
 
         NewMatch {
+            owner_id,
             start_time,
             duration_seconds,
             location,
@@ -208,13 +249,24 @@ impl From<api::PostMatch> for NewMatch {
 #[derive(Clone, Debug, PartialEq, Queryable, Serialize)]
 pub struct Team {
     pub id: i32,
+    pub owner_id: i32,
     pub team_name: String,
 }
 
 #[derive(Clone, Debug, PartialEq, Deserialize, Insertable)]
 #[table_name = "teams"]
 pub struct NewTeam {
+    pub owner_id: i32,
     pub team_name: String,
+}
+
+impl NewTeam {
+    pub fn with_owner(team: api::PostTeam, owner_id: i32) -> Self {
+        NewTeam {
+            owner_id,
+            team_name: team.team_name.clone(),
+        }
+    }
 }
 
 #[derive(Queryable, Serialize)]

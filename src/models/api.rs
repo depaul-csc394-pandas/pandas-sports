@@ -3,6 +3,11 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::convert::From;
 
+#[derive(Debug, Deserialize, PartialEq, Clone)]
+pub struct PostTeam {
+    pub team_name: String,
+}
+
 #[derive(Debug, Deserialize, Serialize, PartialEq, Clone)]
 pub struct MatchCommon {
     pub start_time: Option<DateTime<Utc>>,
@@ -65,6 +70,7 @@ pub enum GetMatchDetails {
 #[derive(Clone, Serialize)]
 pub struct GetMatch {
     pub id: i32,
+    pub owner_id: i32,
     #[serde(flatten)]
     pub match_common: MatchCommon,
     pub details: GetMatchDetails,
@@ -276,6 +282,7 @@ mod tests {
     fn test_get_match_serialize() {
         let src = GetMatch {
             id: 17,
+            owner_id: 42,
             match_common: MatchCommon {
                 start_time: Some(Utc.ymd(1917, 11, 08).and_hms(00, 45, 00)),
                 duration_seconds: Some(15900),
@@ -321,6 +328,7 @@ mod tests {
             serde_json::to_value(src).expect("serialization failed"),
             json!({
                 "id": 17,
+                "owner_id": 42,
                 "start_time": "1917-11-08T00:45:00Z",
                 "duration_seconds": 15900,
                 "location": "Petrograd, Russia",

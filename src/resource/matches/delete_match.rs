@@ -1,11 +1,11 @@
 use crate::{
     error::{self, ServiceError},
     models::{api, sql},
-    Pool,
+    user, Pool,
 };
+use actix_identity::Identity;
 use actix_web::{web, HttpResponse};
 use diesel::prelude::*;
-use futures::Future;
 use serde::Deserialize;
 
 #[derive(Deserialize)]
@@ -13,8 +13,19 @@ pub struct PathParams {
     id: i32,
 }
 
-fn query(path: web::Path<PathParams>, pool: web::Data<Pool>) -> Result<(), ServiceError> {
+fn query(
+    path: web::Path<PathParams>,
+    pool: web::Data<Pool>,
+    user_id: i32,
+) -> Result<(), ServiceError> {
     use crate::schema::matches::dsl::*;
+
+    if !user::user_owns_match_(pool.clone(), user_id, path.id)? {
+        return Err(error::forbidden(failure::err_msg(
+            "You do not own this match.",
+        )));
+    }
+
     let conn = pool.get().map_err(error::unavailable)?;
 
     let match_: sql::Match = {
@@ -97,9 +108,12 @@ fn query(path: web::Path<PathParams>, pool: web::Data<Pool>) -> Result<(), Servi
 pub fn delete_match(
     path: web::Path<PathParams>,
     pool: web::Data<Pool>,
-) -> impl Future<Item = HttpResponse, Error = ServiceError> {
-    web::block(move || query(path, pool)).then(move |res| match res {
+    identity: Identity,
+) -> Result<HttpResponse, ServiceError> {
+    let user_id = crate::user::id_for_identity(pool.clone(), identity.clone())?;
+
+    match query(path, pool, user_id) {
         Ok(()) => Ok(HttpResponse::NoContent().finish()),
-        Err(e) => Err(error::from_blocking(e)),
-    })
+        Err(e) => Err(e),
+    }
 }

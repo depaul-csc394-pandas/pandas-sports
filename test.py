@@ -7,15 +7,15 @@ METHODS = ['post', 'get', 'delete']
 
 dotenv.load_dotenv()
 
-d = os.getenv("DOMAIN")
-if d is not None:
-    DOMAIN = d
+_DOMAIN = os.getenv("DOMAIN")
+if _DOMAIN is not None:
+    DOMAIN = _DOMAIN
 else:
     DOMAIN = 'localhost'
 
-p = os.getenv("PORT")
-if p is not None:
-    PORT = int(p)
+_PORT = os.getenv("PORT")
+if _PORT is not None:
+    PORT = int(_PORT)
 else:
     PORT = 8080
 
@@ -34,37 +34,39 @@ def check_status(req, resp):
         print('Response: {}'.format(resp.text))
         exit(1)
 
-def set_cookie(session, header_val):
-    args = header_val.split('; ')
-    session.headers['cookie'] = args[0]
+def login(session, username, password):
+    login_data = {'username': username, 'password': password}
+    resp = session.post(URL + '/login', json=login_data)
 
-with open('test-data.yaml') as yaml_file:
-    test_data = yaml.load(yaml_file)
+def main():
+    with open('test-data.yaml') as yaml_file:
+        test_data = yaml.load(yaml_file)
 
-session = requests.Session()
-# log in as admin
-login_data = {
-    "username": "admin",
-    "password": os.getenv("ADMIN_PASS"),
-}
-print('login_data: {}'.format(login_data))
-login_response = session.post(URL + '/login', json=login_data)
-login_response.raise_for_status()
-set_cookie(session, login_response.headers['set-cookie'])
+    session = requests.Session()
+    # log in as admin
+    login_data = {
+        "username": "admin",
+        "password": os.getenv("ADMIN_PASS"),
+    }
+    print('login_data: {}'.format(login_data))
+    login_response = session.post(URL + '/login', json=login_data)
+    login_response.raise_for_status()
 
-reqs = test_data['requests']
-for req in reqs:
-    validate_request(req)
-    method = req['method'].lower()
-    full_url = URL + req['route']
-    if method == 'post':
-        resp = session.post(full_url, json=req['body'])
-    elif method == 'get':
-        resp = session.get(full_url)
-    elif method == 'delete':
-        resp = session.delete(full_url)
-    else:
-        print('Method ({}) not recognized!'.format(method))
-        exit(1)
-    check_status(req, resp)
+    reqs = test_data['requests']
+    for req in reqs:
+        validate_request(req)
+        method = req['method'].lower()
+        full_url = URL + req['route']
+        if method == 'post':
+            resp = session.post(full_url, json=req['body'])
+        elif method == 'get':
+            resp = session.get(full_url)
+        elif method == 'delete':
+            resp = session.delete(full_url)
+        else:
+            print('Method ({}) not recognized!'.format(method))
+            exit(1)
+        check_status(req, resp)
 
+if __name__ == '__main__':
+    main()

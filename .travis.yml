@@ -22,9 +22,10 @@ before_install:
 before_script:
   - touch .env
   - echo "ADMIN_PASS=admin" >> .env
+  - echo "BIND_ADDR=0.0.0.0" >> .env
   - echo "COOKIE_KEY=$(head /dev/urandom | tr -dc A-Za-z | head -c 32)" >> .env
   - echo "DATABASE_URL=postgres://postgres@localhost/pandas_sports" >> .env
-  - echo "DOMAIN=0.0.0.0" >> .env
+  - echo "DOMAIN=127.0.0.1" >> .env
   - echo "PEPPER=$(head /dev/urandom | tr -dc A-Za-z | head -c 32)" >> .env
   - echo "PORT=8080" >> .env
   - cargo install --force diesel_cli --no-default-features --features=postgres

@@ -24,6 +24,7 @@ mod schema;
 mod secret;
 mod user;
 
+static BIND_ADDR: &'static str = "BIND_ADDR";
 static DATABASE_URL: &'static str = "DATABASE_URL";
 static DOMAIN: &'static str = "DOMAIN";
 static PORT: &'static str = "PORT";
@@ -108,7 +109,8 @@ fn main() {
         create_admin(pool.clone());
     }
 
-    let domain = || env::var(DOMAIN).unwrap_or("localhost".to_string());
+    let bind_addr = env::var(BIND_ADDR).unwrap_or("0.0.0.0".to_string());
+    let domain = env::var(DOMAIN).unwrap_or("localhost".to_string());
     let port = env::var(PORT).unwrap_or("8080".to_string());
 
     HttpServer::new(move || {
@@ -121,7 +123,7 @@ fn main() {
                 CookieIdentityPolicy::new(&*secret::COOKIE_KEY)
                     .name("pandas-auth")
                     .path("/")
-                    .domain(domain())
+                    .domain(domain.as_str())
                     .max_age_time(chrono::Duration::days(1))
                     .secure(false),
             ))
@@ -169,7 +171,7 @@ fn main() {
                     ),
             )
     })
-    .bind(&format!("{}:{}", domain(), port))
+    .bind(&format!("{}:{}", bind_addr, port))
     .unwrap()
     .run()
     .unwrap();

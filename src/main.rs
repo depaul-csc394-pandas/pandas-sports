@@ -119,7 +119,7 @@ fn main() {
             .wrap(Cors::new().allowed_methods(vec!["GET", "POST", "DELETE"]))
             .wrap(IdentityService::new(
                 CookieIdentityPolicy::new(&*secret::COOKIE_KEY)
-                    .name("auth-cookie")
+                    .name("pandas-auth")
                     .path("/")
                     .domain(domain())
                     .max_age_time(chrono::Duration::days(1))

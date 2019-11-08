@@ -33,7 +33,7 @@ pub fn id_for_identity(
         Some(s) => s,
         None => {
             return Err(error::unauthorized(err_msg(
-                "You must be logged in to create matches.",
+                "You are not logged in.",
             )))
         }
     };

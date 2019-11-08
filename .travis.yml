@@ -12,7 +12,7 @@ addons:
       - "python3"
       - "python3-pip"
       - "python3-setuptools"
-      - "wait-for-it"
+      - "wget"
 jobs:
   allow_failures:
     - rust: nightly
@@ -34,5 +34,7 @@ script:
   - cargo test --verbose --all
   - cargo run &
   - SERVER_PID=$!
-  - wait-for-it localhost:8080 -s -t 10 -- python3 test.py
+  - wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
+  - chmod +x wait-for-it.sh
+  - ./wait-for-it.sh localhost:8080 -s -t 10 -- python3 test.py
   - kill $!

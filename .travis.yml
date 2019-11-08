@@ -12,6 +12,7 @@ addons:
       - "python3"
       - "python3-pip"
       - "python3-setuptools"
+      - "wait-for-it"
 jobs:
   allow_failures:
     - rust: nightly
@@ -33,5 +34,5 @@ script:
   - cargo test --verbose --all
   - cargo run &
   - SERVER_PID=$!
-  - python3 test.py
+  - wait-for-it localhost:8080 -s -t 10 -- python3 test.py
   - kill $!

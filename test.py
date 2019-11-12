@@ -43,14 +43,6 @@ def main():
         test_data = yaml.load(yaml_file)
 
     session = requests.Session()
-    # log in as admin
-    login_data = {
-        "username": "admin",
-        "password": os.getenv("ADMIN_PASS"),
-    }
-    print('login_data: {}'.format(login_data))
-    login_response = session.post(URL + '/login', json=login_data)
-    login_response.raise_for_status()
 
     reqs = test_data['requests']
     for req in reqs:
@@ -58,7 +50,7 @@ def main():
         method = req['method'].lower()
         full_url = URL + req['route']
         if method == 'post':
-            resp = session.post(full_url, json=req['body'])
+            resp = session.post(full_url, json=req.get('body'))
         elif method == 'get':
             resp = session.get(full_url)
         elif method == 'delete':

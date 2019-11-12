@@ -1,4 +1,50 @@
 requests:
+  # CREATE TEAM WITHOUT LOGGING IN ############################################
+  - route: '/teams'
+    method: 'post'
+    body:
+      team:
+        team_name: Pandas
+    response:
+      status: 401
+  # CREATE MATCH WITHOUT LOGGING IN ###########################################
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        team_1_id: 1
+        team_2_id: 2
+        team_1_score: 100
+        team_2_score: 40000
+        details:
+          sport: baseball
+          team_1: {}
+          team_2: {}
+    response:
+      status: 401
+  # CREATE ACCOUNTS ###########################################################
+  - route: '/register'
+    method: 'post'
+    body:
+      username: 'user_1'
+      password: 'password_1'
+    response:
+      status: 201
+  - route: '/register'
+    method: 'post'
+    body:
+      username: 'user_2'
+      password: 'password_2'
+    response:
+      status: 201
+  # LOG IN AS USER_1 ##########################################################
+  - route: '/login'
+    method: 'post'
+    body:
+      username: 'user_1'
+      password: 'password_1'
+    response:
+      status: 200
   # CREATE TEAMS ##############################################################
   - route: '/teams'
     method: 'post'
@@ -935,7 +981,7 @@ requests:
             rc_err: 10
             rc_att: 54
           team_2:
-            set_scores: [23, 20, 15, 18]
+            set_scores: [23, 20, 15, 18]
             sv_ace: 4
             sv_err: 6
             sv_att: 17
@@ -1074,8 +1120,41 @@ requests:
     method: 'get'
     response:
       status: 404
-  # DELETE TEAM WITH EXISTING MATCHES
+  # DELETE TEAM WITH EXISTING MATCHES ######################################
   - route: '/teams/3'
     method: 'delete'
     response:
       status: 409
+  # LOG OUT USER_1 #########################################################
+  - route: '/logout'
+    method: 'post'
+    response:
+      status: 200
+  # LOG IN USER_2 ##########################################################
+  - route: '/login'
+    method: 'post'
+    body:
+      username: 'user_2'
+      password: 'password_2'
+    response:
+      status: 200
+  # DELETE UNOWNED MATCH ###################################################
+  - route: '/matches/4'
+    method: 'delete'
+    response:
+      status: 403
+  # CREATE MATCH WITH UNOWNED TEAMS ########################################
+  - route: '/matches'
+    method: 'post'
+    body:
+      match:
+        team_1_id: 1
+        team_2_id: 2
+        team_1_score: 4
+        team_2_score: 6
+        details:
+          sport: baseball
+          team_1: {}
+          team_2: {}
+    response:
+      status: 403
